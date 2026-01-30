@@ -1,0 +1,109 @@
+<html>
+<head>
+<title></title>
+</head>
+<body bgcolor="lightgray">
+
+<form method="get" action="server.html">
+<table align="center"  width="700" height="600" bgcolor="skyblue">
+<caption><font color="red" size="6" face="calibari">ITI Registration Form</font></caption>
+<tr>
+<th>Email</th>
+<td><input type="email" placeholder="Enter Email " name="mail" size="70"/></td>
+</tr>
+
+<tr>
+<th>User Name</th>
+<td><input type="text" placeholder="Enter User name " name="usr" size="70"/></td>
+</tr>
+
+
+<tr>
+<th>Password</th>
+<td><input type="Password" placeholder="Enter Password " name="pass" size="70"/></td>
+</tr>
+
+<tr>
+<th>Birth Date</th>
+<td><input type="date"  name="DOB" /></td>
+</tr>
+
+<tr>
+<th>Age</th>
+<td><input type="number" name="age" min="20" max="27"/></td>
+</tr>
+<tr>
+<th>Image</th>
+<td><input type="file"  name="img" /></td>
+</tr>
+
+<tr>
+<th>Gender</th>
+<td>
+<table width="500" cellspacing="15">
+<tr>
+<td align="center"><input type="radio"  name="jender" value="male"/>Male</td>
+<td><input type="radio"  name="jender" value="Female"/>FeMale</td>
+
+</tr>
+</table>
+</td>
+</tr>
+
+
+<tr>
+<th>Cources</th>
+<td>
+<table width="500" >
+<tr>
+<td ><input type="checkbox"  name="crs" value="CPP"/>CPP</td>
+<td ><input type="checkbox"  name="crs" value="JS"/>JS</td>
+<td ><input type="checkbox"  name="crs" value="Angular"/>Angular</td>
+</tr>
+<tr>
+<td ><input type="checkbox"  name="crs" value="React"/>React</td>
+<td ><input type="checkbox"  name="crs" value="Laravel"/>Laravel</td>
+<td ><input type="checkbox"  name="crs" value="Nextjs"/>NextJS</td>
+</tr>
+</table>
+</td>
+</tr>
+
+
+<tr>
+
+<th> Address</th>
+<td>
+<select name="city">
+<option >Choose Branch </option>
+
+<option value="Mansoura">Mansoura</option>
+<option value="cairo">Cairo</option>
+<option value="Alex">Alex</option>
+<option value="Isma">Ismailia</option>
+
+</select>
+</td>
+</tr>
+
+
+<tr>
+<td colspan="2">
+<table align="center">
+<tr>
+<td><input type="submit" value="Register" /></td>
+<td><input type="reset" value="Cancel" /></td>
+
+</tr>
+</table>
+</td>
+</tr>
+
+</table>
+
+
+</form>
+
+
+</body>
+</html>

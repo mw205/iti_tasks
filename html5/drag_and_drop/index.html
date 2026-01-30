@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+<div class="col-md-6 p-4 mt-5 order-2 order-md-1" id="#from-drag">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-single-selection">
+                            <i class="fa-regular fa-circle-dot"></i> Single Selection
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-multiple-selection">
+                            <i class="fa-regular fa-square-check"></i> Multiple Selection
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-single-select-grid">
+                            <i class="fa-solid fa-braille"></i>
+                            Single Select Grid
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-multiple-select-grid">
+                            <i class="fa-solid fa-table-cells-large"></i>
+                            Multiple Select Grid
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-rating">
+                            <i class="fa-regular fa-star"></i> Rating
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-message">
+                            <i class="fa-solid fa-quote-left"></i> Message
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-short-text">
+                            <i class="fa-regular fa-circle-dot"></i> Short Text
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-long-text">
+                            <i class="fa-solid fa-table-cells"></i>
+                            Long Text
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-drop-down">
+                            <i class="fa-regular fa-square-caret-down"></i> Drop Down
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-slider">
+                            <i class="fa-solid fa-sliders"></i>Slider
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-ranking">
+                            <i class="fa-solid fa-up-down"></i> Ranking
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-sum">
+                            <i class="fa-solid fa-square-plus"></i> Sum
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="btn w-100 text-start text-secondary btn-light shadow-sm p-3 mb-5 bg-body rounded draggable-button"
+                            draggable="true" id="button-numeric">
+                            <i class="fa-solid fa-hashtag"></i> Numeric
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 bg-light order-1 order-md-2 mt-5" id="to-drag">
+
+                <div class="row g-3" id="right-grid-container">
+                    <div class="card p-3 rounded border-primary my-5" id="to-drag-card"
+                        style="border-style: dotted; border-width: 2px; background-color: #f9f9ff;">
+
+                        <h5 class="card-title text-secondary">Page 1</h5>
+
+                        <div class="card-body">
+                            <p class="card-text text-primary text-center">
+                                Drag & drop your first question here
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+        </script>
+    <script src="main.js"></script>
+</body>
+
+</html>

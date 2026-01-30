@@ -1,0 +1,50 @@
+.dynamicLi {
+  background-color: pink;
+  color: aqua;
+}
+
+.bPink {
+  padding-top: 50px;
+  background-color: pink;
+}
+
+.bGrey {
+  background-color: lightgray;
+}
+
+.fontLarge {
+  font-size: large;
+}
+
+.fontGreen {
+  color: green;
+}
+
+.fontBlue {
+  color: Blue;
+}
+
+.b.a {
+  background-color: aqua;
+}
+img {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  border: 3px solid green;
+}
+.borderedImages {
+  border: solid pink 2px;
+}
+/* parent child */
+/* ol li{
+    background-color: pink;
+} */
+/* input[type=text][name=ageText]
+{
+
+} */
+.zooming {
+  background-color: green;
+  font-size: 20px;
+}

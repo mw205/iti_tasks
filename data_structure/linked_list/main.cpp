@@ -1,0 +1,250 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+class Person
+{
+    int id;
+    string name;
+    int age;
+
+public:
+    Person(int id, string name, int age)
+    {
+        setId(id);
+        setName(name);
+        setAge(age);
+    }
+    Person()
+    {
+        setId(0);
+        setName("undetermined");
+        setAge(22);
+    }
+
+    void setId(int id)
+    {
+        this->id = id;
+    }
+    void setName(string name)
+    {
+        this->name = name;
+    }
+    void setAge(int age)
+    {
+        this->age = age;
+    }
+
+    int getId()
+    {
+        return id;
+    }
+
+    string getName()
+    {
+        return name;
+    }
+
+    int getAge()
+    {
+        return age;
+    }
+
+    void print()
+    {
+        cout << "id : " << getId() << endl;
+        cout << "name : " << getName() << endl;
+        cout << "age : " << getAge() << endl;
+    }
+};
+class Employee : public Person
+{
+    float salary;
+
+public:
+    Employee(int id, string name, int age, float salary) : Person(id, name, age)
+    {
+        setSalary(salary);
+    }
+    Employee() : Person()
+    {
+        salary = 0;
+    }
+    void setSalary(float salary)
+    {
+        this->salary = salary;
+    }
+
+    float getSalary()
+    {
+        return salary;
+    }
+    void print()
+    {
+        Person::print();
+        cout << "Salary: " << getSalary() << endl;
+    }
+};
+
+struct Node
+{
+public:
+    Employee value;
+    Node *prev;
+    Node *next;
+    Node(Employee newValue)
+    {
+        value = newValue;
+        prev = nullptr;
+        next = nullptr;
+    }
+};
+class LinkedList
+{
+    Node *head;
+    Node *tail;
+
+public:
+    LinkedList()
+    {
+        head = nullptr;
+        tail = nullptr;
+    }
+    bool isEmpty()
+    {
+        return head == nullptr;
+    }
+    void display()
+    {
+        if (isEmpty())
+        {
+            cout << "List is Empty \n";
+            return;
+        }
+        Node *temp = head;
+        while (temp)
+        {
+            temp->value.print();
+            // move to next node
+            temp = temp->next;
+        }
+    }
+    void append(int id, string name, int age, float salary)
+    {
+        Employee emp(id, name, age, salary);
+        Node *temp = new Node(emp);
+        temp->value = emp;
+
+        if (isEmpty())
+        {
+            head = temp;
+            tail = temp;
+        }
+        else
+        {
+            tail->next = temp;
+            temp->prev = tail;
+            tail = temp;
+        }
+    }
+    Employee *searchById(int id)
+    {
+        Node *temp = head;
+        while (temp)
+        {
+            if (temp->value.getId() == id)
+            {
+                return &temp->value;
+            }
+            temp = temp->next;
+        }
+        return nullptr;
+    }
+
+    int count()
+    {
+        int n = 0;
+        if (isEmpty())
+        {
+            return n;
+        }
+        else
+        {
+            Node *temp = head;
+            while (temp)
+            {
+                n++;
+                temp = temp->next;
+            }
+        }
+        return n;
+    }
+
+    void deleteNode(int id)
+    {
+        Node *temp = head;
+
+        while (temp != nullptr && temp->value.getId() != id)
+        {
+            temp = temp->next;
+        }
+        if (temp == nullptr)
+        {
+            cout << "Employee not found !!";
+            return;
+        }
+        if (temp == head)
+        {
+            head = head->next;
+            if (head == nullptr)
+            {
+                head->prev = nullptr;
+                tail = nullptr;
+            }
+        }
+        else if (temp == tail)
+        {
+            tail->next = nullptr;
+            tail = tail->prev;
+        }
+        // delete from the middle
+        else
+        {
+            temp->prev->next = temp->next;
+            temp->next->prev = temp->prev;
+        }
+    }
+    void insertAfter(int existingId, int newId, string name, int age, float salary)
+    {
+        Node *temp = head;
+        while (temp && temp->value.getId() != existingId)
+        {
+            temp = temp->next;
+        }
+        Node *newNode = new Node(Employee(newId, name, age, salary));
+        newNode->next = temp->next;
+        newNode->prev = temp;
+
+        temp->next = newNode;
+
+        if (newNode->next != nullptr)
+        {
+            newNode->next->prev = newNode;
+        }
+        else
+        {
+            tail = newNode;
+        }
+    }
+};
+
+int main()
+{
+    LinkedList l;
+    l.append(1, "mohamed", 22, 1200);
+    l.append(2, "ahmed", 25, 1550);
+    l.append(3, "aly", 29, 2000);
+
+    l.display();
+    return 0;
+}

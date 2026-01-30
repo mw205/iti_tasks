@@ -1,0 +1,12 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    float x ;
+    int int_x;
+    cin >> x;
+    if(x== )
+    return 0;
+}

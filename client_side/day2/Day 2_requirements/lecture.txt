@@ -1,0 +1,70 @@
+static web page 
+
+1-Text 
+2- Images 
+
+3-  tables 
+4-  forms
+
+============================
+links 
+
+<a></a>
+<a  href="uri">google</a>
+links
+1- External Link 
+
+2- Internal Link 
+
+3- Named Anchor Link 
+4-  Mail Link 
+
+================================ 
+pathes 
+1- absolute Path 
+
+2- relative 
+
+============================
+to : yasser@iti.com
+cc: 
+bcc:abdallah@iti
+subject  : new Vision 2025
+body : 
+
+href="mailto:yasser@iti.com?cc=abdallah@iti.com&bcc=ayman@iti.com"
+
+==============================================
+collect data 
+ transefer + req 
+
+<form>
+
+method ="post"
+
+action  =""
+
+<input  type= text  password radio checkbox 
+file  button reset  submit  email  number
+
+
+<select 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

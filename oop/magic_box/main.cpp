@@ -1,0 +1,75 @@
+#include <iostream>
+#include <windows.h>
+using namespace std;
+void gotoxy(int column, int line)
+{
+    COORD coord;
+    coord.X = column;
+    coord.Y = line;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+class MagicBox
+{
+    int size;
+
+public:
+    MagicBox(int size)
+    {
+        setSize(size);
+    }
+    void draw()
+    {
+        system("cls");
+        // printing the first number
+        int num = 1;
+        int i = 0;        // for rows
+        int j = size / 2; // for columns
+        cout << num;
+        while (num <= size * size)
+        {
+
+            gotoxy(j * 6, i * 3);
+            cout << num;
+
+            int next_i = (i - 1 + size) % size;
+            int next_j = (j + 1) % size;
+            if (num % size == 0)
+                i = (i + 1) % size; // move down
+            else
+            {
+                i = next_i;
+                j = next_j;
+            }
+
+            num++;
+        }
+    }
+    void setSize(int size)
+    {
+        this->size = size;
+    }
+};
+int main()
+{
+    bool flag = 0;
+    int size = 0;
+    // take the input from the user and ensure the input is odd
+    do
+    {
+
+        cout << "enter an odd size : ";
+        cin >> size;
+        if (size % 2 != 0)
+        {
+            flag = 1;
+        }
+        else
+        {
+            cout << "size is invalid \n";
+        }
+    } while (flag == 0);
+    MagicBox m(size);
+    m.draw();
+    return 0;
+}

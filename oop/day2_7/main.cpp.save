@@ -1,0 +1,16 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+int main()
+{
+    // mirror the number
+    int number, mirrored = 0;
+    cout << "Enter a number : ";
+    while(number> 0)
+    {
+        int digit = number %10;
+        mirrored = mirrored *10 
+    }
+    return 0;
+}

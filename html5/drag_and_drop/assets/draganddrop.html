@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop</title>
+  <style>
+    div{
+      width: 100%;
+      display: flex;
+    }
+
+    section{
+      width: 400px;
+      height: 400px;
+      border: 1px solid black;
+      margin: 10px;
+      text-align: center;
+    }
+
+    img{
+      width: 100px;
+      height: 100px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <section id="left">
+      
+    </section>
+    <section id="right">
+      <img src="UP/1.jpg" alt="">
+      <img src="UP/2.jpg" alt="">
+      <img src="UP/3.jpg" alt="">
+      <img src="UP/4.jpg" alt="">
+      <img src="UP/5.jpg" alt="">
+      <img src="UP/6.jpg" alt="">
+      <img src="UP/7.jpg" alt="">
+      <img src="UP/8.jpg" alt="">
+      <img src="UP/9.jpg" alt="">
+    </section>
+  </div>
+
+  <script>
+    let images = document.querySelectorAll('img')
+    let left = document.querySelector('#left')
+    let right = document.querySelector('#right')
+
+    images.forEach(image => {
+      image.addEventListener('dragstart', (e) => {
+        console.log(e.target.outerHTML)
+        console.log(e.target)
+        e.dataTransfer.setData('myimg', e.target.outerHTML)
+        // e.dataTransfer.setData('test', e.target)
+
+      })
+
+      image.addEventListener('dragend', (e) => {
+        console.log('end')
+        e.target.style.display='none'
+      })
+    })
+
+    right.addEventListener('dragleave', (e)=>{
+      e.target.style.backgroundColor = 'red'
+    })
+
+    left.addEventListener('drop', (e) => {
+      left.innerHTML += e.dataTransfer.getData('myimg')
+      // e.dataTransfer.getData('test').style.display = 'none'
+    })
+
+    left.addEventListener('dragenter', (e) => {
+      e.preventDefault();
+    })
+
+    left.addEventListener('dragover', (e) => {
+      e.preventDefault();
+    })
+
+  </script>
+</body>
+</html>

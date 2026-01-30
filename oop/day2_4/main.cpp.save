@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    // take a sentence from the user and print the number of words and characters
+    string sentence;
+    cout << "Enter a sentence: ";
+    getline(cin, sentence);
+    int word;
+    int character;
+    character = sentence.length();
+    for (int i = 0; i < sentence.length(); i++)
+    {
+        if (sentence[i] == ' ' && sentence[i + 1] == ' ')
+        {
+            character--;
+        }
+        if (sentence[i] == ' ')
+        {
+            word++;
+        }
+    }
+    if (sentence[sentence.length() - 1] == ' ')
+    {
+        word--;
+    }
+    else
+    {
+        word++;
+    }
+    cout <<"Words :"  << words;
+    return 0;
+}

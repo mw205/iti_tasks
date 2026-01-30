@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1760957254 source:c:\users\user\desktop\visual_studio\iti\oop\lab3_3\main.cpp
+	<iostream>
+	<windows.h>
+
+1761560560 source:c:\users\user\desktop\visual_studio\iti\oop\magic_box\main.cpp
+	<iostream>
+	<windows.h>
+

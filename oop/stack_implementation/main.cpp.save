@@ -1,0 +1,107 @@
+#include <iostream>
+
+using namespace std;
+
+class Stack
+{
+
+    int tos;
+    int size;
+    int* arr;
+public:
+    Stack(int _size)
+    {
+        tos=-1;
+        size=_size;
+        arr= new int [size];
+    }
+
+    void push(int x)
+    {
+        if(tos<size-1)
+        {
+            tos++;
+            arr[tos]=x;
+        }
+        else
+        {
+            cout <<"Stack is full!!";
+        }
+    }
+
+    int pop(int& x)
+    {
+        if(tos>=0)
+        {
+            x= arr[tos];
+            tos--;
+            return 1;
+        }
+        else
+        {
+            cout << "Stack is Empty";
+            return 0;
+        }
+    }
+    void peek()
+    {
+        if(tos!=-1)
+        {
+            cout << "top element : "<< arr[tos] << endl;
+        }
+        else
+        {
+            cout << "\nStack is Empty\n";
+        }
+    }
+    // copy constructor
+
+    Stack(Stack& s)
+    {
+        tos = s.tos ;
+        size = s.size;
+        arr = new int[size];
+        cout << "tos: " << tos << endl << "size : "<< size << endl;
+        for (int i = 0 ; i < tos+1 ; i ++)
+        {
+            arr[i] = s.arr[i] ;
+        }
+        for(int i = 0 ; i < tos+1 ; i ++){
+            cout << arr[i] << " " ;
+        }
+        e
+    }
+
+    // destructor
+    ~Stack()
+    {
+        delete[]arr;
+    }
+};
+int main()
+{
+    Stack s1 (5);
+    int popped= 0;
+    s1.push(10);
+    s1.push(20);
+    s1.push(30);
+//    s1.push(40);
+//    s1.push(50);
+//    s1.push(70);
+    cout <<endl;
+    s1.peek(); // 30
+//    s1.pop(popped);  // 50
+//    s1.pop(popped); // 40
+//    s1.pop(popped); // 30
+//    s1.pop(popped);
+//    s1.pop(popped);
+//    cout << "popped element : "<< popped << endl;
+//    s1.pop(popped);
+
+    // try copy constructor
+
+    cout << "Copying s1 -> s2 : " << endl;
+    Stack s2 = s1 ;
+    s2.peek();
+    return 0;
+}

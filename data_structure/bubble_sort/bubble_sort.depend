@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1767533525 source:e:\visual_studio\iti\data_structure\bubble_sort\main.cpp
+	<iostream>
+	<bits/stdc++.h>
+

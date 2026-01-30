@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void swap(int&x,int&y)
+{
+    int temp = x;
+    x = y;
+    y = temp;
+}
+int main()
+{
+    int x, y, z , low , mid , hight;
+    cin>> x >> y >> z;
+    
+    if (x>y)
+    {
+        swap(x, y);
+    }
+    if (y>z)
+    {
+        swap(y,z);
+    }
+    cout << x << endl<< y<<endl<<z<<endl;
+    cout <<  endl<< z << endl << y<<  endl<<  x;
+}

@@ -1,0 +1,527 @@
+#include <iostream>
+#include <string>
+#include <windows.h>
+#include <conio.h>
+#include <ctype.h>
+
+using namespace std;
+
+class Person
+{
+    int id;
+    string name;
+    int age;
+
+public:
+    Person(int id, string name, int age)
+    {
+        setId(id);
+        setName(name);
+        setAge(age);
+    }
+    Person()
+    {
+        setId(0);
+        setName("undetermined");
+        setAge(22);
+    }
+
+    void setId(int id)
+    {
+        this->id = id;
+    }
+    void setName(string name)
+    {
+        this->name = name;
+    }
+    void setAge(int age)
+    {
+        this->age = age;
+    }
+
+    int getId()
+    {
+        return id;
+    }
+
+    string getName()
+    {
+        return name;
+    }
+
+    int getAge()
+    {
+        return age;
+    }
+
+    void print()
+    {
+        cout << "id : " << getId() << endl;
+        cout << "name : " << getName() << endl;
+        cout << "age : " << getAge() << endl;
+    }
+};
+class Employee : public Person
+{
+    float salary;
+
+public:
+    Employee(int id, string name, int age, float salary) : Person(id, name, age)
+    {
+        setSalary(salary);
+    }
+    Employee() : Person()
+    {
+        salary = 0;
+    }
+    void setSalary(float salary)
+    {
+        this->salary = salary;
+    }
+
+    float getSalary()
+    {
+        return salary;
+    }
+    void print()
+    {
+        Person::print();
+        cout << "Salary: " << getSalary() << endl;
+    }
+};
+
+struct Node
+{
+public:
+    Employee value;
+    Node* prev;
+    Node* next;
+    Node(int newId, Node* newPrev, Node* newNext)
+    {
+        id= newId;
+        prev = newPrev;
+        next = newNext;
+    }
+};
+
+class LinkedList
+{
+    Node* head;
+    Node* tail;
+public:
+   void display(){
+    Node* temp = head;
+    while(temp){
+        cout << temp->id;
+        cout << temp->name;
+        cout << temp->age;
+        if(temp->next !=nullptr)
+    }
+   }
+
+};
+
+struct MenuOption
+{
+    char title[20];
+    char subtitles[3][50];
+    int subCount;
+};
+
+// Function Prototypes
+void gotoxy(int x, int y);
+void textattr(int color);
+void printEmployeeDetails(Employee emp);
+void addNewEmployee(Stack &employees, int index);
+void addNewMultipleEmployees(Stack &employees);
+void displayAllEmployees(Stack &employees);
+void displayEmployeeByNumber(Stack &employees);
+
+int main()
+{
+    char ch;
+    int hindex = 0;
+    int sindex = 0;
+    int menuLevel = 0;
+
+    MenuOption options[3] =
+    {
+        {"New", {"Multiple Records", "Record by Number"}, 2},
+        {"Display", {"Multiple Records", "Record by Number"}, 2},
+        {"Exit", {""}, 0}
+    };
+
+    int arrSize;
+
+    do
+    {
+        cout << "Enter the total number of employee records to store: ";
+        cin >> arrSize;
+        if (arrSize < 1)
+        {
+            system("cls");
+            cout << "You must have at least 1 record.\n";
+        }
+    }
+    while (arrSize < 1);
+
+    Stack employees(arrSize);
+
+    cout << "System ready to store " << arrSize << " employees. Press any key...";
+    getch();
+    do
+    {
+        system("cls");
+
+        for (int i = 0; i < 3; i++)
+        {
+            gotoxy(0, 0 + i);
+            if (i == hindex)
+            {
+                textattr(0x04);
+                cout << options[i].title;
+
+                if (options[i].subCount > 0)
+                {
+                    for (int j = 0; j < options[i].subCount; j++)
+                    {
+                        gotoxy(10, 0 + j);
+                        if (menuLevel == 1 && j == sindex)
+                        {
+                            textattr(0x03);
+                        }
+                        else
+                        {
+                            textattr(0x07);
+                        }
+                        cout << options[i].subtitles[j];
+                    }
+                }
+            }
+            else
+            {
+                textattr(0x07);
+                cout << options[i].title;
+            }
+        }
+        textattr(0x07);
+
+        ch = getch();
+
+        if (ch == -32)
+        {
+            ch = getch();
+            switch (ch)
+            {
+            case 72:
+                if (menuLevel == 0)
+                {
+                    hindex--;
+                    if (hindex < 0)
+                        hindex = 2;
+                    sindex = 0;
+                }
+                else
+                {
+                    sindex--;
+                    if (sindex < 0)
+                        sindex = options[hindex].subCount - 1;
+                }
+                break;
+
+            case 80:
+                if (menuLevel == 0)
+                {
+                    hindex++;
+                    if (hindex > 2)
+                        hindex = 0;
+                    sindex = 0;
+                }
+                else
+                {
+                    sindex++;
+                    if (sindex >= options[hindex].subCount)
+                        sindex = 0;
+                }
+                break;
+
+            case 77:
+                if (menuLevel == 0 && options[hindex].subCount > 0)
+                {
+                    menuLevel = 1;
+                }
+                break;
+
+            case 75:
+                if (menuLevel == 1)
+                {
+                    menuLevel = 0;
+                }
+                break;
+
+            case 71:
+                hindex = 0;
+                sindex = 0;
+                menuLevel = 0;
+                break;
+
+            case 79:
+                hindex = 2;
+                sindex = 0;
+                menuLevel = 0;
+                break;
+            }
+        }
+        else if (ch == 13)
+        {
+            system("cls");
+            if (menuLevel == 0)
+            {
+                if (hindex == 2)
+                {
+                    cout << "Exiting program." << endl;
+                    return 0;
+                }
+                else if (options[hindex].subCount > 0)
+                {
+                    menuLevel = 1;
+                }
+            }
+            else
+            {
+                switch (hindex)
+                {
+                case 0:
+                    if (sindex == 0)
+                    {
+                        addNewMultipleEmployees(employees);
+                    }
+                    else
+                    {
+                        int rowNumber;
+                        do
+                        {
+                            cout << "Enter record number to add/edit (1-" << arrSize << "): ";
+                            cin >> rowNumber;
+                            if (rowNumber < 1 || rowNumber > arrSize)
+                            {
+                                system("cls");
+                                cout << "Invalid record number. Please enter a value between 1 and " << arrSize << ".\n";
+                            }
+                        }
+                        while (rowNumber < 1 || rowNumber > arrSize);
+
+                        addNewEmployee(employees, rowNumber - 1);
+                    }
+                    break;
+
+                case 1:
+                    if (sindex == 0)
+                    {
+                        displayAllEmployees(employees);
+                    }
+                    else
+                    {
+                        displayEmployeeByNumber(employees);
+                    }
+                    break;
+                }
+
+                cout << "\n\nPress any key to return to the menu...";
+                getch();
+            }
+        }
+        else if (ch == 27)
+        {
+            if (menuLevel == 1)
+            {
+                menuLevel = 0;
+                ch = 0;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+    }
+    while (ch != 27);
+
+    return 0;
+}
+
+// Function Definitions
+void gotoxy(int x, int y)
+{
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void textattr(int color)
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
+
+void printEmployeeDetails(Employee emp)
+{
+    cout << "Employee's ID : " << emp.getId() << "\nName : " << emp.getName() << "\nSalary : " << emp.getSalary();
+}
+
+void addNewEmployee(Stack &employees, int index)
+{
+    if (employees.getElement(index).getId() != 0)
+    {
+        cout << "\nThis record already contains data:\n";
+        printEmployeeDetails(employees.getElement(index));
+
+        char overrideChoice;
+        do
+        {
+            cout << "\n\nDo you want to override it? (y/n): ";
+            cin >> overrideChoice;
+            overrideChoice = tolower(overrideChoice);
+        }
+        while (overrideChoice != 'y' && overrideChoice != 'n');
+
+        if (overrideChoice != 'y')
+        {
+            cout << "Operation cancelled.";
+            return;
+        }
+    }
+
+    int id = 0;
+    do
+    {
+        cout << "\nEnter New Employee ID : ";
+        cin >> id;
+        if (id <= 0)
+        {
+            cout << "ID must be a positive number." << endl;
+        }
+    }
+    while (id <= 0);
+    employees.getElement(index).setId(id);
+
+    cout << "Enter New Employee Name: ";
+    cin.ignore();
+
+    string tmpName;
+    std::getline(cin, tmpName);
+    employees.getElement(index).setName(tmpName);
+
+    float sal = -1;
+    do
+    {
+        cout << "Enter New Employee Salary : ";
+        cin >> sal;
+        if (sal < 0)
+        {
+            cout << "Salary cannot be negative." << endl;
+        }
+    }
+    while (sal < 0);
+    employees.getElement(index).setSalary(sal);
+
+    cout << "\nEmployee data saved successfully at record " << (index + 1) << ".";
+}
+
+void addNewMultipleEmployees(Stack &employees)
+{
+    int numToAdd;
+    bool valid = false;
+    int arrSize = employees.getSize();
+    do
+    {
+        cout << "How many employees do you want to add? (1-" << arrSize << "): ";
+        cin >> numToAdd;
+
+        if (numToAdd > arrSize || numToAdd < 1)
+        {
+            system("cls");
+            cout << "Enter a valid number between (1-" << arrSize << ")\n";
+            valid = false;
+        }
+        else
+        {
+            valid = true;
+        }
+
+    }
+    while (valid == false);
+
+    int addedCount = 0;
+
+    for (int i = 0; i < arrSize && addedCount < numToAdd; i++)
+    {
+        if (employees.getElement(i).getId() == 0)
+        {
+            cout << "\n--- Adding Employee in Record " << (i + 1) << " ---" << endl;
+            addNewEmployee(employees, i);
+            addedCount++;
+        }
+    }
+
+    if (addedCount == 0)
+    {
+        cout << "Could not add any employees. The array might be full.";
+    }
+    else
+    {
+        cout << "\n\nFinished adding " << addedCount << " employee(s).";
+    }
+}
+
+void displayAllEmployees(Stack &employees)
+{
+    cout << "--- All Employee Records ---" << endl;
+    bool found = false;
+    int arrSize = employees.getSize();
+
+    for (int i = 0; i < arrSize; i++)
+    {
+        if (employees.getElement(i).getId() != 0)
+        {
+            cout << "\nRecord " << (i + 1) << ":\n";
+            printEmployeeDetails(employees.getElement(i));
+            cout << "\n----------------------------\n";
+            found = true;
+        }
+    }
+
+    if (!found)
+    {
+        cout << "No employee records found.\n";
+    }
+}
+
+void displayEmployeeByNumber(Stack &employees)
+{
+    int rowNumber;
+    int arrSize = employees.getSize();
+
+    do
+    {
+        cout << "Enter record number to display (1-" << arrSize << "): ";
+        cin >> rowNumber;
+        if (rowNumber < 1 || rowNumber > arrSize)
+        {
+            system("cls");
+            cout << "Invalid record number. Please enter a value between 1 and " << arrSize << ".\n";
+        }
+    }
+    while (rowNumber < 1 || rowNumber > arrSize);
+
+    int index = rowNumber - 1;
+    if (employees.getElement(index).getId() != 0)
+    {
+        cout << "\n--- Displaying Record " << rowNumber << " ---\n";
+        printEmployeeDetails(employees.getElement(index));
+    }
+    else
+    {
+        cout << "Record " << rowNumber << " is empty.";
+    }
+}

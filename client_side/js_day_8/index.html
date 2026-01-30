@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+
+        }
+
+        body {
+            background-color: rgb(201, 198, 198);
+        }
+
+        .main_country,
+        .neighbor_country {
+            display: inline-block;
+
+        }
+
+        .neighbor_country {
+            height: 450px;
+        }
+
+        .country_card {
+            margin: 50px 30px;
+            width: 300px;
+            height: auto;
+            background-color: white;
+            box-shadow: 0px 4px 11px -3px rgba(0, 0, 0, 0.51);
+            border-radius: 5px;
+        }
+
+        .neighbor_country .country_card {
+            width: 250px;
+        }
+
+
+        .country_flag {
+            width: 300px;
+            border-radius: 5px;
+        }
+
+        .neighbor_country .country_card .country_flag {
+            width: 250px;
+        }
+
+        .info_tile img {
+            width: 30px;
+            padding-right: 15px;
+        }
+
+        .info_tile p {
+            vertical-align: super;
+            display: inline;
+            color: grey;
+            font-size: 14px;
+        }
+
+        .country_name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .country_continent {
+            font-size: 14px;
+            font-weight: bold;
+            color: grey;
+        }
+
+        .country_info {
+            padding-left: 15px;
+            padding-bottom: 30px;
+        }
+
+        .country_continent {
+            padding-top: 5px;
+            padding-bottom: 20px;
+        }
+
+        .name_continent_info {
+            padding-top: 15px;
+        }
+
+        .neighbor_country p.title {
+            text-align: center;
+            color: gray;
+            font-weight: bold;
+        }
+    </style>
+    <script src="classes.js"></script>
+    <script src="main.js">
+
+
+    </script>
+</head>
+
+<body>
+    <div class="main_country">
+        <div class="country_card">
+            <img class="country_flag" src="imgs/flag.png" alt="">
+            <div class="country_info">
+                <div class="name_continent_info">
+                    <p class="country_name">Egypt</p>
+                    <p class="country_continent">
+                        Africa
+                    </p>
+                </div>
+                <div class="country_general_info">
+                    <div class="info_tile">
+                        <img src="imgs/population_icon.png" alt="">
+                        <p>102.3MPeople</p>
+                    </div>
+                    <div class="info_tile">
+                        <img src="imgs/language_icon.png" alt="">
+                        <p>Arabic</p>
+                    </div>
+
+                    <div class="info_tile">
+                        <img src="imgs/currency_icon.png" alt="">
+                        <p>Egyptian Pound</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="neighbor_country">
+        <p class="title"> NEIGHBOUR COUNTRY
+        </p>
+        <div class="country_card">
+            <img class="country_flag" src="imgs/flag.png" alt="">
+            <div class="country_info">
+                <div class="name_continent_info">
+                    <p class="country_name">Egypt</p>
+                    <p class="country_continent">
+                        Africa
+                    </p>
+                </div>
+                <div class="country_general_info">
+                    <div class="info_tile">
+                        <img src="imgs/population_icon.png" alt="">
+                        <p>120.3MPeople</p>
+                    </div>
+                    <div class="info_tile">
+                        <img src="imgs/language_icon.png" alt="">
+                        <p>Arabic</p>
+                    </div>
+
+                    <div class="info_tile">
+                        <img src="imgs/currency_icon.png" alt="">
+                        <p>Egyptian Pound</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+
+</html>

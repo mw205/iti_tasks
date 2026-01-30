@@ -1,0 +1,46 @@
+.active-employees > i {
+  color: green !important;
+}
+
+.fa-magnifying-glass {
+  margin-right: -2px;
+  z-index: 99;
+}
+.avatar-large {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.info-box {
+  background-color: #deefff;
+}
+.emp-card {
+  border: none;
+  border-bottom: 5px solid #018000;
+}
+@media (max-width: 576px) {
+  header .btn {
+    padding: 0.375rem 0.5rem;
+  }
+}
+@media (max-width: 768px) {
+  nav .navbar-collapse {
+    width: 100%;
+  }
+
+  .controls-btn,
+  .view-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .info-box {
+    margin: 1rem !important;
+    padding: 1rem !important;
+    gap: 1rem;
+  }
+
+  .info-box-row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+}

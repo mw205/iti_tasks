@@ -1,0 +1,51 @@
+#include <iostream>
+
+using namespace std;
+
+class Parent
+{
+protected:
+    int x, y;
+
+public:
+    Parent(int _x = 1, int _y = 1)
+    {
+        x = _x ;
+        y = _y;
+    }
+    virtual int add()
+    {
+        return x + y;
+    }
+};
+
+class Child : public Parent
+{
+private :
+    int z;
+public:
+    Child (int _x, int _y, int _z):Parent(_x, _y)
+    {
+        z = _z;
+    }
+    int add()
+    {
+        return Parent::add()+z;
+
+    }
+
+
+};
+int main()
+{
+    Parent p ;
+    Child c (5, 5,  5);
+    p =  c;
+    cout << "parent add result : " << p.add() << endl;
+    Parent * ptr;
+    ptr = &c;
+    cout << "parent pointer add result : " << ptr->add() << endl;
+
+    cout << "child add result : "<< c.add() << endl;
+    return 0;
+}

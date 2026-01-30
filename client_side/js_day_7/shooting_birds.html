@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            cursor: none;
+        }
+
+
+        body {
+            margin: 0;
+            background-image: url("imgs/shooting_bird_background.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+
+        }
+
+        .shooting_gun {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            width: 700px;
+        }
+
+        .shooting_point {
+            position: fixed;
+            width: 150px;
+            z-index: 1000;
+
+        }
+    </style>
+</head>
+
+<body>
+    <img class="shooting_gun" src="imgs/shooting_gun.png" alt="">
+    <img class="shooting_point" src="imgs/shooting_point.png" alt="Shooting gun">
+    <audio src="assets/pew-pew-lame-sound-effect.mp3">
+
+    </audio>
+    <script src="shooting_birds.js"></script>
+</body>
+
+</html>

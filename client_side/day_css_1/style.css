@@ -1,0 +1,656 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topbar {
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+  padding: 0px 20px 10px 0px;
+  overflow: hidden;
+}
+
+.topbar-left {
+  float: left;
+}
+
+.logo {
+  background-color: #e60012;
+  color: #fff;
+  font-weight: bold;
+  padding: 12px 15px;
+  display: inline-block;
+}
+
+.topbar-center {
+  display: inline-block;
+  margin-left: 30px;
+}
+
+.search {
+  padding-top: 8px;
+}
+.search-input {
+  padding: 8px;
+  border: none;
+  border-bottom: 2px solid #000;
+  outline: none;
+  width: 250px;
+}
+
+.search-select {
+  border: none;
+  margin-left: 10px;
+  padding: 5px;
+  background-color: transparent;
+}
+
+.topbar-right {
+  padding-top: 12px;
+  float: right;
+}
+
+.topbar-right .nav-item {
+  display: inline-block;
+  margin-left: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.topbar-right .nav-item img {
+  width: 18px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.sub-nav {
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 20px;
+  background-color: #fff;
+}
+
+.sub-nav-link {
+  text-decoration: none;
+  color: #434242;
+  font-weight: bold;
+  margin-right: 25px;
+  font-size: 14px;
+}
+
+.sub-nav-link img {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.sub-nav-link:hover {
+  color: #e60012;
+}
+
+.current-offers {
+  text-align: center;
+  background-color: #efefef;
+  padding: 12px 20px;
+  font-size: 13px;
+  overflow: hidden;
+}
+
+.offer-content {
+  display: inline-block;
+  margin-right: 40px;
+  color: #434242;
+}
+
+.offer-content img {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.offer-content a {
+  color: #e60012;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.main-wrapper {
+  width: 100%;
+  height: 700px;
+  z-index: -1;
+  background-color: #d6f0fa;
+  position: absolute;
+}
+.main-content {
+  top: 50px;
+  position: relative;
+  z-index: 1;
+  width: 80%;
+  margin: 0 auto;
+  padding: 25px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.main-content-bread-crump {
+  font-size: 12px;
+  margin-bottom: 20px;
+  color: #666;
+  margin-left: 30px;
+}
+
+.main-content-bread-crump a {
+  color: #434242;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.main-content-bread-crump a:hover {
+  text-decoration: underline;
+}
+.main-content-bread-crump a:last-child {
+  color: #000;
+  font-weight: bold;
+}
+
+.main-content-left {
+  float: left;
+  width: 60%;
+  padding: 10px 20px 40px;
+}
+.current-image {
+  border-radius: 8px;
+  width: 100%;
+}
+.main-content-right {
+  float: right;
+  width: 40%;
+}
+.main-content-left .gallery {
+  width: 150%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+.main-content-left .gallery img {
+  border-radius: 8px;
+  width: 80px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.ersb-container {
+  overflow: hidden;
+}
+.ersb-container img {
+  float: left;
+  width: 50px;
+}
+.esrb-container-text {
+  float: left;
+  margin-left: 10px;
+  font-size: 11px;
+  width: 300px;
+}
+.esrb-container-text p {
+  display: inline-block;
+  color: #434242;
+}
+
+.esrb-container-text hr {
+  margin: 5px 0px;
+}
+.main-content-right {
+  padding: 10px 20px 40px;
+}
+.product-info-header {
+  font-size: 14px;
+  text-decoration: underline #e60012;
+  color: #434242;
+  text-underline-offset: 15px;
+  margin-bottom: 40px;
+}
+.product-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #434242;
+  margin-bottom: 50px;
+}
+
+.product-info-price {
+  font-size: 25px;
+  font-weight: bold;
+  color: #434242;
+  margin-bottom: 30px;
+  display: inline-block;
+  margin-right: 50px;
+}
+.product-info-row img {
+  height: 25px;
+}
+.product-info-subtitle {
+  margin-bottom: 25px;
+}
+.product-info-subtitle img {
+  height: 25px;
+  vertical-align: middle;
+}
+.product-info-subtitle p {
+  display: inline-block;
+}
+.download-btn {
+  cursor: pointer;
+  text-align: center;
+  background-color: #e60012;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-bottom: 15px;
+}
+
+.download-btn img {
+  height: 35px;
+  vertical-align: middle;
+}
+.product-info-message {
+  font-size: 12px;
+  color: #666;
+}
+.description-section {
+  width: 100%;
+  padding: 90px 200px;
+  font-size: 15px;
+}
+.description-section a {
+  text-decoration: none;
+  color: #e60012;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 30px;
+  display: inline-block;
+}
+
+.description-content {
+  float: left;
+  margin-right: 50px;
+  width: 55%;
+}
+.description-section img {
+  float: right;
+  margin-left: 30px;
+  width: 35%;
+  border-radius: 10px;
+}
+.description-content p:first-child {
+  margin-bottom: 30px;
+}
+
+.info-boxes {
+  margin-top: 80px;
+  padding: 90px 170px;
+}
+.info-boxes .esrb-box,
+.playmodes-box {
+  float: left;
+  width: 49%;
+  margin-right: 10px;
+  height: 200px;
+  background-color: #efefef;
+  padding: 20px;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.info-boxes .ersb-container {
+  margin-top: 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+.playmodes-box {
+  float: right;
+}
+.playmodes-box h3 {
+  margin-bottom: 20px;
+  color: #434242;
+}
+.mode-box {
+  display: inline-block;
+  width: 28%;
+  margin-right: 3%;
+  text-align: center;
+}
+.mode-box-text {
+  margin-top: 10px;
+  color: #434242;
+  font-weight: bold;
+}
+
+.mode-box img {
+  padding: 20px 40px;
+  background-color: #0b2b6b;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  height: 80px;
+  display: block;
+  margin-bottom: 10px;
+}
+.game-details-container {
+  padding: 40px 170px;
+  border-top: 1px solid #eee;
+  background-color: #fff;
+  margin-top: 150px; /* Kept your edit */
+  position: relative;
+  z-index: 0;
+  overflow: hidden; /* Added to contain floats */
+}
+
+.game-details-list {
+  list-style: none;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #333;
+}
+
+.game-details-list li {
+  border-bottom: 1px solid #eee;
+  padding: 15px 10px;
+  overflow: hidden; /* Changed from flex to clearfix */
+}
+
+.game-details-list li:last-child {
+  border-bottom: none;
+}
+
+.detail-icon {
+  float: left; /* Added float */
+  margin-right: 15px;
+  width: 24px;
+  text-align: center;
+  /* Removed flex-shrink */
+}
+
+.detail-icon img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  opacity: 0.7;
+}
+
+.detail-label {
+  float: left; /* Added float */
+  font-weight: bold;
+  width: 180px;
+  /* Removed flex-shrink */
+}
+
+.detail-value {
+  line-height: 1.5;
+  overflow: hidden; /* Added to take remaining space */
+  /* Removed flex-grow */
+}
+
+.detail-value a {
+  color: #e60012;
+  text-decoration: underline;
+  margin-right: 10px;
+}
+
+.detail-value a:hover {
+  text-decoration: none;
+}
+
+.nintendo-online-promo {
+  background-color: #f9f9f9;
+  padding: 40px 170px;
+  border-top: 1px solid #eee;
+  overflow: hidden; /* Changed from flex to clearfix */
+  /* Removed flex properties */
+}
+
+.promo-left {
+  float: left; /* Added float */
+  width: 55%; /* Changed from flex-basis */
+  margin-right: 5%; /* Added to create space */
+}
+
+.promo-logo {
+  width: 150px;
+  margin-bottom: 15px;
+}
+
+.promo-text {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.promo-supports {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.promo-supports a {
+  color: #e60012;
+  text-decoration: underline;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.promo-btn {
+  display: inline-block;
+  background-color: #e60012;
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.promo-right {
+  float: right; /* Added float */
+  width: 40%; /* Changed from flex-basis */
+  text-align: center;
+  /* Removed vertical-align: bottom; as it's not needed with float */
+}
+
+.promo-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.recently-viewed {
+  padding: 60px 170px;
+  background-color: #fff;
+}
+
+.recently-viewed h2 {
+  font-size: 24px;
+  color: #434242;
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.viewed-items-grid {
+  overflow: hidden; /* Changed from flex to clearfix */
+  /* Removed flex properties */
+}
+
+.viewed-item-card {
+  float: left; /* Added float */
+  width: 23.5%; /* Adjusted for margin */
+  margin-right: 2%; /* Added for spacing */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: relative; /* Added for footer positioning */
+  height: 420px; /* Added fixed height */
+  /* Removed flex properties */
+}
+
+/* Added rule to remove margin from last card */
+.viewed-item-card:last-child {
+  margin-right: 0;
+}
+
+.card-image-container {
+  position: relative;
+}
+
+.card-image {
+  width: 100%;
+  display: block;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.card-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 5px 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.demo-badge {
+  background-color: #0078f0;
+}
+
+.sale-badge {
+  background-color: #e60012;
+}
+
+.card-info {
+  padding: 15px;
+  border-top: 1px solid #eee;
+  height: 100%; /* Added to fill parent */
+  /* Removed flex properties */
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  height: 42px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.card-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.card-price-sale {
+  margin-bottom: 15px;
+}
+
+.card-discount-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e60012;
+  margin-right: 8px;
+}
+
+.card-original-price {
+  font-size: 13px;
+  color: #777;
+  text-decoration: line-through;
+}
+
+.card-footer {
+  overflow: hidden; /* Changed from flex to clearfix */
+  position: absolute; /* Added for positioning */
+  bottom: 15px; /* Added for positioning */
+  left: 15px; /* Added for positioning */
+  right: 15px; /* Added for positioning */
+  /* Removed flex properties and margin-top: auto */
+}
+
+.card-platform {
+  float: left; /* Added float */
+  font-size: 13px;
+  color: #666;
+}
+
+.card-wishlist {
+  float: right; /* Added float */
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.footer-legal {
+  background-color: #efefef;
+  padding: 40px 170px;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.6;
+  border-top: 1px solid #ddd;
+}
+
+.footer-legal p {
+  margin-bottom: 15px;
+}
+
+.footer-legal p:last-child {
+  margin-bottom: 0;
+}
+
+/* Your new footer styles are preserved */
+.footer {
+  background-color: #e60012;
+  color: white;
+  padding: 40px 20px 20px;
+  margin-top: 40px;
+}
+
+.footer-links {
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.footer-column {
+  float: left;
+  width: 23%;
+  margin-right: 2%;
+}
+
+.footer-column h4 {
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.footer-column p {
+  margin: 8px 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.footer-column p:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding-top: 20px;
+  font-size: 12px;
+}

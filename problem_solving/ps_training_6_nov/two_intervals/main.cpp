@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int min (int x,int y)
+{
+    if (x< y)
+    {
+        return x;
+    }
+    else
+    {
+        return y;
+    }
+}
+int max(int x,int y){
+    if (x> y){
+        return x;
+    }
+    else{
+        return y;
+    }
+}
+int main()
+{
+    int l1, r1, l2,r2, intersection_start , intersection_end;
+    cin >> l1 >> r1 >> l2 >> r2;
+    intersection_start = max(l1,l2);
+    intersection_end = min(r1,r2);
+    if(intersection_start<=intersection_end){
+        cout << intersection_start << " " << intersection_end;
+    }
+    else{
+        cout << -1;
+    }
+    return 0;
+}

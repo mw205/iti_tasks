@@ -1,0 +1,167 @@
+#include <iostream>
+
+using namespace std;
+
+class Shape
+{
+
+    int dim1;
+    int dim2;
+
+public:
+    Shape(int dim1, int dim2)
+    {
+        setDim1(dim1);
+        setDim2(dim2);
+    }
+    Shape() : Shape(0, 0)
+    {
+    }
+    // it makes the dimensions to be equal
+    Shape(int dim1) : Shape(dim1, dim1)
+    {
+    }
+    int getDim1()
+    {
+        return dim1;
+    }
+    int getDim2()
+    {
+        return dim2;
+    }
+
+    void setDim1(int dim)
+    {
+        dim1 = dim;
+    }
+    void setDim2(int dim)
+    {
+        dim2 = dim;
+    }
+
+    void print()
+    {
+        cout << "dimension 1 : " << dim1 << endl
+             << "dimension2 : " << dim2;
+    }
+    virtual float calcArea()
+    {
+        return dim1*dim2;
+    }
+    void setDim(int dim)
+    {
+        setDim1(dim);
+        setDim2(dim);
+    }
+};
+
+class Rectangle : public Shape
+{
+public:
+    Rectangle(int dim1, int dim2) : Shape(dim1, dim2) {}
+
+    void print()
+    {
+        cout << "Rectangle Data: " << endl;
+        Shape::print();
+        cout << endl;
+    }
+    float calcArea()
+    {
+        return getDim1() * getDim2();
+    }
+
+};
+
+class Square : public Rectangle
+{
+public:
+    Square(int _dim = 1):Rectangle(_dim, _dim)
+    {
+
+    }
+    float calcArea()
+    {
+        return
+            getDim1()* getDim1();
+    }
+};
+class Triangle : public Shape
+{
+public:
+    Triangle(int dim1, int dim2) : Shape(dim1, dim2) {}
+
+    void print()
+    {
+        cout << "Triangle Data: " << endl;
+        Shape::print();
+        cout << endl;
+    }
+    float calcArea()
+    {
+        return .5 * getDim1() * getDim2();
+    }
+};
+class Circle : public Shape
+{
+public:
+    Circle(int dim) : Shape(dim) {}
+    float calcArea()
+    {
+        return 3.14 * getDim1() * getDim1()  ;
+    }
+
+    void setDim1(int _dim1)
+    {
+        setDim(_dim1);
+    }
+
+    void print()
+    {
+        cout << "Circle Data: " << endl;
+        cout << "Radius :" << getDim1() << endl;
+    }
+};
+
+
+void printShape(Shape* s)
+{
+    s->print();
+}
+int main()
+{
+
+    Shape* s;
+    Rectangle r(4, 5);
+    r.print();
+    cout<< r.calcArea() << endl;
+    Triangle t(4, 5);
+    t.print();
+    cout<< t.calcArea()<< endl;
+
+    Circle c(7);
+    c.print();
+    cout<< c.calcArea() << endl;
+
+    Square sq(5);
+
+    cout << sq.calcArea()<< endl;
+    s = &sq;
+    cout << "Shape Details"<< endl;
+    printShape(s);
+    cout << endl <<"Shape Area : "<<
+         s->calcArea() << endl;
+
+
+    // array of shapes
+
+    Shape shapes [4] = {r, t, c, sq};
+
+    float areasSum = 0;
+    for(int i = 0 ; i< 4 ; i ++)
+    {
+        areasSum+=  shapes[i].calcArea();
+    }
+    cout << "areas sum = " << areasSum << endl;
+    return 0;
+}

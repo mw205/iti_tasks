@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "*.dbclient-js": "javascript",
+        "*.embeddedhtml": "html",
+        "format": "cpp",
+        "istream": "cpp",
+        "memory": "cpp",
+        "type_traits": "cpp",
+        "xlocmes": "cpp",
+        "xlocmon": "cpp",
+        "xlocnum": "cpp",
+        "xloctime": "cpp"
+    }
+}

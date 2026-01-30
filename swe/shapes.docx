@@ -1,0 +1,11 @@
+Shape is an abstract class
+Shape is a superclass. Circle, Rectangle, and Polygon are derived from Shape.
+Shape is part of the Window. Shape can exist without the Window.
+Point is part of Circle. The point cannot exist without a Circle.
+The window is dependent on the Event.
+However, the Event is not dependent on the Window.
+The attributes of a Circle are radius and center.
+The method names of Circle are area(), circum(), setCenter() and setRadius().
+The parameter radius in Circle is an in parameter of type float.
+The method area() of class Circle returns a value of type double.
+The attributes and method names of Rectangle are hidden. Some other classes in the diagram also have their attributes and method names hidden.

@@ -1,0 +1,69 @@
+Hyper Text 
+
+Plain Text 
+Hyper Text 
+
+links 
+
+source >>>> destination 
+
+<a href="">content </a>
+
+External Link 
+Internal Link 
+NamedAnchor Link 
+Mail Link 
+
+pathes 
+
+absluote Path 
+relative Path 
+
+to:  ahmed@iti.com
+cc:  mhmud@iti.com
+bcc:  abdAllah@iti.com
+subject:  
+
+body:
+
+href="mailto:a@a.a?cc=b@b.b&bcc=e@e.e"
+
+action 
+method 
+?
+
+
+<input type=/>
+text 
+password 
+email 
+date
+number
+button 
+radio 
+checkbox 
+file 
+submit 
+reset 
+
+
+select 
+label 
+text area 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

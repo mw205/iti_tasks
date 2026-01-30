@@ -1,0 +1,92 @@
+#include <iostream>
+
+using namespace std;
+struct Node
+{
+    int value;
+    Node *prev;
+    Node *next;
+};
+class Queue
+{
+
+    Node *rear;
+    Node *front;
+
+
+public:
+    Queue()
+    {
+        rear = front = nullptr;
+    }
+    int isEmpty()
+    {
+        return front == nullptr;
+    }
+    int enqueqe(int x)
+    {
+        Node* temp = new Node();
+        temp->value = x;
+        // handle the first entered number
+        if (isEmpty()!=0)
+        {
+            rear = front = temp;
+        }
+        else{
+            rear->next= temp;
+            rear =temp;
+            rear->next = front;
+
+        }
+        return 1;
+    }
+
+    int dequeque(int &x)
+    {
+        // handle empty queue case
+        if (isEmpty() == 1)
+        {
+            cout << "\nQueue is Empty";
+            return 0;
+        }
+        else
+        {
+            x = front.value;
+            front->next= fro
+        }
+        return 1;
+    }
+
+    void display()
+    {
+        if (isEmpty())
+        {
+            cout << "Queue is Empty!!" << endl;
+            return;
+        }
+        if (front <= rear)
+        {
+            for (int i = front; i <= rear; i++)
+            {
+                cout << arr[i] << " ";
+            }
+        }
+        else
+        {
+            for (int i = front; i < size; i++)
+            {
+                cout << arr[i] << " ";
+            }
+            for (int i = 0; i <= rear; i++)
+            {
+                cout << arr[i];
+            }
+        }
+    }
+};
+
+int main()
+{
+    cout << "Hello world!" << endl;
+    return 0;
+}

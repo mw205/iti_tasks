@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // first internal script
+
+        // console.log("first internal script");
+        // console.log(number1); // error
+        // console.log(number2); // error
+        // console.log(number3); // error
+
+    </script>
+</head>
+
+<body>
+    <p>Welcome to js</p>
+    <button onclick="alert('clicked')">Click me</button>
+    <script src="external.js"></script>
+    <!--  add another internal script after external.js script in html
+file and print the same value? -->
+    <script>
+
+        // second internal script
+
+        // console.log("second internal script");
+        // console.log(number1); // 3
+        // console.log(number2); // 2.9
+        // console.log(number3); // 255
+    </script>
+
+
+    <script>
+
+        console.log("third internal script");
+        console.log("number1 + number2 : ", number1 + number2);
+        console.log("flag + number2 : ", flag + number2);
+        console.log("firstName + flag : ", firstName + flag);
+        console.log("number1 + number 2 + firstName : ", number1 + number2 + firstName);
+        console.log("number1 + firstName + number2", number1 + firstName + number2);
+        console.log("number1 * flag : ", number1 * flag);
+        console.log("number1 / lastName : ", number1 / lastName);
+        var fullName = `${firstName} ${middleName} ${lastName}`
+        console.log(`full name : ${fullName}`);
+        var fullNameArr = fullName.split(" ");
+        console.table(fullNameArr);
+        console.log("5 is even : ", isEven(5));
+        console.log("6 is even : ", isEven(6));
+        printTo10();
+        checkSign(5);
+        checkSign(-5);
+        checkSign(0);
+        multiplicationTable(10);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .media-item {
+            background-color: #585757;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        .media-item.active {
+            background-color: #2ecc71;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="currentAudioTitle"></p>
+    <audio src="assets/سورة الواقعة.mp3"></audio>
+    <input type="range" id="timeRange" min="0" value="0" step="0.1" title="timeRange">
+
+    <br>
+    <button onclick="playAudio()">play</button>
+    <button onclick="pauseAudio()">pause</button>
+    <button onclick="stopAudio()">stop</button>
+    <div class="media-item active" data-src="assets/سورة الواقعة.mp3">
+
+        سورة الواقعة
+    </div>
+    <div class="media-item" data-src="assets/سورة مريم.m4a">
+        سورة مريم
+    </div>
+    <div class="media-item" data-src="assets/قصار السور.m4a">
+        قصار السور
+    </div>
+    <br>
+
+    <script src="main.js"></script>
+
+
+</body>
+
+</html>

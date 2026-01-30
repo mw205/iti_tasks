@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1761557313 source:c:\users\user\desktop\visual_studio\iti\oop\employee_menu_with_stack\main.cpp
+	<iostream>
+	<string>
+	<windows.h>
+	<conio.h>
+	<ctype.h>
+

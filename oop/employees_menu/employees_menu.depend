@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1761132362 source:c:\users\user\desktop\visual_studio\iti\oop\employees_menu\main.cpp
+	<iostream>
+	<windows.h>
+	<conio.h>
+	<string.h>
+	<ctype.h>
+

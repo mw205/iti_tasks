@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body {
+  background-color: #f9fafc;
+}
+header {
+  grid-area: header;
+  background-color: #1e283a;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 16px;
+}
+.logo {
+  font-size: 20px;
+}
+aside {
+  background-color: #f1f5f8;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  grid-area: aside;
+}
+
+.aside-item {
+  background-color: #e0e9f0;
+  padding: 16px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.login-btn {
+  background-color: #0fa6e8;
+  color: #1e283a;
+  font-size: 14px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "aside  main"
+    "footer footer";
+}
+main {
+  padding: 20px;
+  grid-area: main;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 8px;
+  padding-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.product-card-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.product-info {
+  padding: 16px;
+  padding-bottom: 0px;
+}
+.product-card-title {
+  padding-bottom: 16px;
+}
+
+footer {
+  background-color: #1e283a;
+  color: white;
+  padding: 16px;
+  text-align: center;
+  grid-area: footer;
+}
+.product-card-description {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 16px;
+}
+.view-product-btn {
+  display: flex;
+  justify-content: center;
+}
+.view-product-btn button {
+  border: none;
+  background-color: #0fa6e8;
+  color: #1e283a;
+  font-size: 14px;
+  padding: 8px 16px;
+  margin: 0px 8px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      "header"
+      "aside"
+      "main"
+      "footer";
+  }
+
+  aside {
+    flex-direction: column;
+    overflow-x: auto;
+  }
+}
