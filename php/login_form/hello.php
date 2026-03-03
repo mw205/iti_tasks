@@ -9,7 +9,7 @@
 
 </head>
 
-<body>
+<body class="p-3">
     <?php
 
     $nickname = $_POST['gender'] == "male" ? "Mr" : "Mrs";
@@ -20,20 +20,20 @@
 
 
     echo
-    "<p>Thanks $nickname {$_POST['firstName']} {$_POST['lastName']}";
+    "<p>Thanks <strong> $nickname {$_POST['firstName']} {$_POST['lastName']}</strong>";
 
-    echo "<p>Please Review Your Information:</p>";
-    echo "<p>Name: " . $_POST['firstName'] . " " . $_POST['lastName'] . "</p>";
-    echo "<p>Address: " . $_POST['address'] . "</p>";
+    echo "<p> <strong>Please Review Your Information: </strong></p>";
+    echo "<p> <strong> Name</strong>: " . $_POST['firstName'] . " " . $_POST['lastName'] . "</p>";
+    echo "<p>   <strong>Address: </strong> " . $_POST['address'] . "</p>";
     if ($skills != "") {
-        echo "<p>Skills: ...<br>";
+        echo "<p> <strong> Skills:</strong> ...<br>";
         foreach ($skills as $skill) {
             echo $skill . "<br>";
         }
 
         echo "</p>";
     }
-    echo "<p>Department: " . $_POST['department'] . "</p>";
+    echo "<p><strong> Department: </strong>" . $_POST['department'] . "</p>";
 
 
 

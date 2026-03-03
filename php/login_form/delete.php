@@ -1,18 +1,17 @@
 <?php
-
-$username = $_GET['username'];
+$username_to_delete = $_GET['username'];
 
 $file = file("db.txt");
-$userRow;
-$userRowIndex;
+
 foreach ($file as $key => $row) {
-    foreach ($file as $key => $row) {
-        $userData = explode(",", $row);
-        if (isset($userData[6]) && $userData[6] === $username) {
-            unset($file[$key]);
-            break;
-        }
+    $userData = explode(",", $row);
+
+    if (isset($userData[6]) && trim($userData[6]) == trim($username_to_delete)) {
+        unset($file[$key]);
+        break;
     }
 }
-file_put_contents("db.txt", implode($file . join("\n")));
+
+file_put_contents("db.txt", implode("", $file));
+
 header("Location:list.php");
