@@ -1,0 +1,32 @@
+{
+    "location": "Mansoura,Egypt",
+    "description": "library's description",
+    "librarian": "Mohamed Waleed",
+    "books": [
+        {
+            "title": "book_title",
+            "isbn": "book_isbn",
+            "author": "book_author",
+            "preface": "book_preface",
+            "parts": [
+                {
+                    "title": "part_title",
+                    "chapters": [
+                        {
+                            "title": "chapter_title",
+                            "summary": "chapter_summary",
+                            "sections": [
+                                {
+                                    "paragraphs": [
+                                        "paragraph_content_1",
+                                        "paragraph_content_2"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

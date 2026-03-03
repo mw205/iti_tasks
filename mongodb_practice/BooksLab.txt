@@ -1,0 +1,99 @@
+[
+  {
+    title: "Learning MongoDB",
+    author: "John Developer",
+    publishedYear: 2024,
+    tags: ["mongodb", "database", "nosql"],
+    metadata: { likes: 120, reviews: 30 },
+    price: 25.5
+  },
+  {
+    title: "Mastering NoSQL",
+    author: "Sarah Query",
+    publishedYear: 2024,
+    tags: ["nosql", "database"],
+    metadata: { likes: 90, reviews: 12 },
+    price: 30
+  },
+  {
+    title: "Python Programming",
+    author: "Alice Code",
+    publishedYear: 2023,
+    tags: ["python", "programming"],
+    metadata: { likes: 50, reviews: 5 },
+    price: 40
+  },
+  {
+    title: "Advanced JavaScript",
+    author: "Bob Script",
+    publishedYear: 2022,
+    tags: ["javascript", "programming", "web"],
+    metadata: { likes: 70, reviews: 15 },
+    price: 35,
+    discount: 5
+  },
+  {
+    title: "Data Structures & Algorithms",
+    author: "Charlie Algo",
+    publishedYear: 2021,
+    tags: ["algorithms", "data structures"],
+    metadata: { likes: 110, reviews: 20 },
+    price: 45
+  },
+  {
+    title: "Database Design",
+    author: "Diana Schema",
+    publishedYear: 2023,
+    tags: ["database", "sql"],
+    metadata: { likes: 65, reviews: 8 },
+    price: 28
+  },
+  {
+    title: "NoSQL in Action",
+    author: "Eve Node",
+    publishedYear: 2020,
+    tags: ["nosql", "mongodb"],
+    metadata: { likes: 80, reviews: 10 },
+    price: 33
+  },
+  {
+    title: "Learning React",
+    author: "Frank UI",
+    publishedYear: 2022,
+    tags: ["javascript", "react", "frontend"],
+    metadata: { likes: 95, reviews: 22 },
+    price: 38
+  },
+  {
+    title: "DevOps Fundamentals",
+    author: "Grace Ops",
+    publishedYear: 2023,
+    tags: ["devops", "ci/cd", "cloud"],
+    metadata: { likes: 40, reviews: 7 },
+    price: 27
+  },
+  {
+    title: "System Design Patterns",
+    author: "Henry Architect",
+    publishedYear: 2021,
+    tags: ["system design", "backend"],
+    metadata: { likes: 75, reviews: 14 },
+    price: 50
+  },
+  {
+    title: "Microservices Architecture",
+    author: "Ivy Backend",
+    publishedYear: 2025,
+    tags: ["microservices", "system design", "backend"],
+    metadata: { likes: 0, reviews: 0 },
+    price: 45
+  },
+  {
+    title: "Cloud Computing Essentials",
+    author: "Jack Cloud",
+    publishedYear: 2025,
+    tags: ["cloud", "devops", "infrastructure"],
+    metadata: { likes: 20, reviews: 5 },
+    price: 55
+  }
+]

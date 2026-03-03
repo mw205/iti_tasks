@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lib>
+    <location>
+        Mansoura,Egypt
+    </location>
+    <description>
+        Libarary of books
+    </description>
+    <librarian>
+        Mohamed Waleed
+    </librarian>
+    <book isbn="book_isbn" author="book_author">
+        <title>book_title</title>
+        <preface>book_preface</preface>
+            
+        <part title="part_title">
+            <chapter title="chapter_title">
+                <summary>chapter_summary</summary>
+                <section>
+                    <paragraph>paragraph_content</paragraph>
+                    <paragraph>paragraph_content</paragraph>
+                </section>
+            </chapter>
+        </part>
+    </book>
+</lib>
+

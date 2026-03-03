@@ -1,0 +1,59 @@
+Single Document CRUD Operations
+===========================================
+1. Find a book by its title "Microservices Architecture".
+2. Find a book published in 2023 using findOne().
+3. Find books cheaper than $35.
+4. Find Books that have a metadata.likes value of type number
+5. Find Books where tags is stored as an array
+6. Find Books where the discount field does NOT exist
+7. Update the price of "Microservices Architecture" to $50.
+8. Update the author of "Python Programming" to "Alice Code Jr.".
+9. Delete a book with title "DevOps Fundamentals".
+10. Delete all books published before 2021.
+11. Sort by publishedYear descending and get the first 3 books
+
+Embedded Documents Operations
+========================================
+12. Find books where metadata.likes > 100.
+13. Find books where metadata.reviews >= 10 and metadata.likes < 100.
+14. Increment metadata.likes of "Learning MongoDB" by 10.
+15. Add a new field metadata.shares with value 0 to all books.
+16. Rename metadata.reviews to metadata.reviewCount in "Advanced JavaScript".
+17. Remove the metadata.likes field from "Database Design".
+==============================================================================
+Array Field Operations
+========================
+18. Find books where tags includes "javascript".
+19. Find books where tags include both "mongodb" and "database".
+20. Find books where the first tag is "nosql".
+21. Find Books whose tags include both "mongodb" and "database"
+22. Add "programming" tag to "Learning MongoDB" if it doesn’t exist.
+23. Remove "nosql" tag from "Mastering NoSQL".
+24. Update "python" tag in "Python Programming" to "Python 3".
+25. Push a new tag "bestseller" to all books published after 2023.
+26. Pull "frontend" tag from books where it exists.
+27. Add multiple tags at once: "cloud", "devops" to "DevOps Fundamentals".
+
+Combined Queries (Embedded + Array)
+=======================================
+28. Find books where metadata.likes > 50 and tags contains "database".
+29. Increment metadata.likes by 5 only for books where tags include "nosql".
+30. Find all books where tags is an array and metadata.reviews exists.
+============================================================
+31. What is $elemMatch , $elemMatch vs $all?
+Dataset
+{
+  title: "Learning MongoDB",
+  tags: [
+    { name: "mongodb", level: "advanced" },
+    { name: "database", level: "beginner" }
+  ]
+}
+Question:
+Find books where:
+tag name = "mongodb"
+level = "advanced"
+
+32. what difference addToSet VS push , pop vs pull 
+
+
