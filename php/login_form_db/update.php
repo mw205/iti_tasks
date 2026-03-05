@@ -1,6 +1,13 @@
 <?php
 require("controller.php");
+if (!$_COOKIE['username']) {
+    header('Location:login.php');
+}
 $user = getUser($_GET['user_id']);
+$errors = [];
+if (isset($_GET['errors'])) {
+    $errors = json_decode($_GET['errors'], true);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,10 +28,16 @@ $user = getUser($_GET['user_id']);
             <div class="mb-3">
                 <label for="FirstName" class="form-label">First Name</label>
                 <input id="FirstName" class="form-control" type="text" name="user_data[f_name]" value="<?php echo htmlspecialchars($user['f_name'] ?? '') ?>">
+                <?php if (isset($errors['f_name'])): ?>
+                    <p class="text-danger"><?php echo $errors['f_name']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="LastName">Last Name</label>
                 <input id="LastName" class="form-control" type="text" name="user_data[l_name]" value="<?php echo htmlspecialchars($user['l_name'] ?? '') ?>">
+                <?php if (isset($errors['l_name'])): ?>
+                    <p class="text-danger"><?php echo $errors['l_name']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="country">Country</label>
@@ -42,6 +55,9 @@ $user = getUser($_GET['user_id']);
             <div class="mb-3">
                 <label class="form-label" for="address">Address</label>
                 <textarea class="form-control" name="user_data[address]" id="address"><?php echo htmlspecialchars($user['address'] ?? '') ?></textarea>
+                <?php if (isset($errors['address'])): ?>
+                    <p class="text-danger"><?php echo $errors['address']; ?></p>
+                <?php endif; ?>
             </div>
             <div class="mb-3">
                 <label class="form-label">Gender</label>

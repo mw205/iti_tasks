@@ -12,6 +12,9 @@
 <body class="p-3">
     <?php
     require("controller.php");
+    if (!$_COOKIE['username']) {
+        header('Location:login.php');
+    }
     $data = getUser($_GET["user_id"]);
     $nickname = $data['gender'] == "male" ? "Mr" : "Mrs";
     $skills = "";

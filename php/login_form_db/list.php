@@ -10,8 +10,21 @@
 </head>
 
 <body>
+
+    <?php
+    if (!$_COOKIE['username']) {
+        header('Location:login.php');
+    }
+    echo "<nav class='navbar bg-body-tertiary'>
+                <div class='container-fluid'>
+                    <h5>
+                        Hello, {$_COOKIE['firstName']}
+                    </h5>
+                </div>
+            </nav>";
+    ?>
     <div class="container-fluid mt-5">
-        <h2 class="mb-4">User List</h2>
+        <h1 class="mb-4">User List</h1>
         <?php
         require("controller.php");
         ini_set('display_errors', 1);
@@ -33,6 +46,7 @@
                 <th>Skills</th>
                 <th>Country</th>
                 <th>Address</th>
+                <th>Image</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -43,7 +57,11 @@
                     if ($key == 'password') {
                         continue;
                     }
-                    echo "<td>$value</td>";
+                    if ($key == "img") {
+                        echo "<td><img src='$value' height=150 width 200></td>";
+                    } else {
+                        echo "<td>$value</td>";
+                    }
                 }
                 echo "<td>
                         <div class='btn-group' role='group'>
