@@ -7,11 +7,10 @@ defineProps({
 </script>
 
 <template>
-    <div class="carousel carousel-center w-full rounded-box gap-4 mx-1 p-4 m-auto justify-center">
+    <div class="carousel carousel-center w-full rounded-3xl gap-6 py-8 px-4 bg-base-200/50">
         <div v-for="product in products" class="carousel-item">
             <ProductCard :product="product" />
         </div>
-
     </div>
 </template>
 
