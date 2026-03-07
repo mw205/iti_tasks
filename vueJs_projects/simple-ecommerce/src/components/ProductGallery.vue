@@ -1,8 +1,15 @@
 <script setup>
+import { onMounted, onUnmounted } from 'vue';
 import ProductCard from './ProductCard.vue';
-
 defineProps({
     products: Array
+});
+onMounted(() => {
+    console.log("Product Gallery - mounted");
+});
+
+onUnmounted(() => {
+    console.log("Product Gallery - unmounted");
 });
 </script>
 

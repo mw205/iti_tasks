@@ -71,7 +71,7 @@ const handleBuy = (boughtProductId) => {
   if (product && product.stock > 0) {
     product.stock--;
   }
-}
+};
 </script>
 
 <template>

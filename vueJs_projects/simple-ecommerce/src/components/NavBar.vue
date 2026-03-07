@@ -1,7 +1,15 @@
 <script setup>
+import { onMounted, onUnmounted } from 'vue';
 const props = defineProps({
     links: Array,
     shopName: String
+});
+onMounted(() => {
+    console.log("NavBar - mounted");
+});
+
+onUnmounted(() => {
+    console.log("NavBar - unmounted");
 });
 </script>
 

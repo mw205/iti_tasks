@@ -10,7 +10,6 @@ const props = defineProps({
     }
 });
 onMounted(() => {
-
     console.log("HomeView mounted —", props.products.length, "products loaded")
 });
 onUnmounted(() => {

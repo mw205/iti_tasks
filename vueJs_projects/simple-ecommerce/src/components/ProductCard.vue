@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, watch } from 'vue';
 const props = defineProps({
     product: Object
 });
@@ -7,17 +7,24 @@ const discountedPrice = computed(() => {
     return props.product.price - (props.product.price * props.product.discount / 100)
 });
 
-const productStock = ref(props.product.stock);
 
-watch(() => props.product.stock, (newStock) => {
-    productStock.value = newStock;
-});
+onMounted(
+    () => {
+        console.log("Product Card - mounted");
+    }
+);
 
+onUnmounted(
+    () => {
+        console.log("Product Card - unmounted");
+    }
+);
 </script>
+
 <template>
     <div class="card bg-base-100 w-screen max-w-sm shadow-lg border border-base-200 overflow-hidden group">
         <div class="absolute right-1 top-1 flex items-end gap-2 z-10 md:flex-row md:justify-end md:mb-4 md:gap-2">
-            <div v-if="productStock === 0" class="badge badge-error badge-lg font-bold shadow-lg uppercase">
+            <div v-if="product.stock === 0" class="badge badge-error badge-lg font-bold shadow-lg uppercase">
                 Out of Stock
             </div>
             <template v-else>
@@ -36,8 +43,8 @@ watch(() => props.product.stock, (newStock) => {
             <h2 class="card-title text-xl font-bold">{{ product.name }}</h2>
 
             <div class="flex justify-between items-center text-sm">
-                <span :class="productStock === 0 ? 'text-error' : 'text-primary'" class="font-semibold">
-                    {{ productStock > 0 ? `Stock: ${productStock}` : 'Out of Stock' }}
+                <span :class="product.stock === 0 ? 'text-error' : 'text-primary'" class="font-semibold">
+                    {{ product.stock > 0 ? `Stock: ${product.stock}` : 'Out of Stock' }}
                 </span>
             </div>
 

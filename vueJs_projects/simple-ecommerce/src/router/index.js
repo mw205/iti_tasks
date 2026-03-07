@@ -5,7 +5,7 @@ const routes = [
   { path: "/about", component: () => import("@/views/AboutView.vue") },
   {
     path: "/product/:id",
-    component: () => import("@/views/ProductDetailsView.vue"),
+    component: () => import("@/views/ProductView.vue"),
   },
 ];
 export const router = createRouter({
