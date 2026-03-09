@@ -1,64 +1,100 @@
 <script setup>
-import { computed, onMounted, onUnmounted, watch } from 'vue';
+import { useCartStore } from "@/stores/cartStore";
+import { computed, onMounted, onUnmounted } from "vue";
+const cartStore = useCartStore();
 const props = defineProps({
-    product: Object
+  product: Object,
 });
 const discountedPrice = computed(() => {
-    return props.product.price - (props.product.price * props.product.discount / 100)
+  return (
+    props.product.price - (props.product.price * props.product.discount) / 100
+  );
 });
 
+onMounted(() => {
+  console.log("Product Card - mounted");
+});
 
-onMounted(
-    () => {
-        console.log("Product Card - mounted");
-    }
-);
-
-onUnmounted(
-    () => {
-        console.log("Product Card - unmounted");
-    }
-);
+onUnmounted(() => {
+  console.log("Product Card - unmounted");
+});
 </script>
 
 <template>
-    <div class="card bg-base-100 w-screen max-w-sm shadow-lg border border-base-200 overflow-hidden group">
-        <div class="absolute right-1 top-1 flex items-end gap-2 z-10 md:flex-row md:justify-end md:mb-4 md:gap-2">
-            <div v-if="product.stock === 0" class="badge badge-error badge-lg font-bold shadow-lg uppercase">
-                Out of Stock
-            </div>
-            <template v-else>
-                <div v-if="product.discount > 0" class="badge badge-secondary badge-lg font-bold shadow-lg">
-                    -{{ product.discount }}%
-                </div>
-                <div v-if="product.badge" class="badge badge-info badge-lg font-bold shadow-lg">
-                    {{ product.badge }}
-                </div>
-            </template>
+  <div
+    class="card bg-base-100 w-screen max-w-sm shadow-lg border border-base-200 overflow-hidden group"
+  >
+    <div
+      class="absolute right-1 top-1 flex items-end gap-2 z-10 md:flex-row md:justify-end md:mb-4 md:gap-2"
+    >
+      <div
+        v-if="product.stock === 0"
+        class="badge badge-error badge-lg font-bold shadow-lg uppercase"
+      >
+        Out of Stock
+      </div>
+      <template v-else>
+        <div
+          v-if="product.discount > 0"
+          class="badge badge-secondary badge-lg font-bold shadow-lg"
+        >
+          -{{ product.discount }}%
         </div>
-        <figure class="overflow-hidden">
-            <img :src="product.image" :alt="product.name" class="h-48 w-full object-contain" />
-        </figure>
-        <div class="card-body gap-3 p-6">
-            <h2 class="card-title text-xl font-bold">{{ product.name }}</h2>
-
-            <div class="flex justify-between items-center text-sm">
-                <span :class="product.stock === 0 ? 'text-error' : 'text-primary'" class="font-semibold">
-                    {{ product.stock > 0 ? `Stock: ${product.stock}` : 'Out of Stock' }}
-                </span>
-            </div>
-
-            <div class="card-actions justify-between items-center mt-4">
-                <div>
-                    <p class="block text-sm font-black base-300 opacity-50 line-through" v-if="product.discount > 0">$
-                        {{ product.price }}</p>
-                    <span class="text-2xl font-black text-primary">${{ discountedPrice }}</span>
-                </div>
-                <RouterLink :to="`/product/${product.id}`">
-                    <button class="btn btn-primary btn-sm rounded-full px-6">View</button>
-                </RouterLink>
-            </div>
+        <div
+          v-if="product.badge"
+          class="badge badge-info badge-lg font-bold shadow-lg"
+        >
+          {{ product.badge }}
         </div>
+      </template>
     </div>
+    <figure class="overflow-hidden">
+      <img
+        :src="product.image"
+        :alt="product.name"
+        class="h-48 w-full object-contain"
+      />
+    </figure>
+    <div class="card-body gap-3 p-6">
+      <h2 class="card-title text-xl font-bold">{{ product.name }}</h2>
+
+      <div class="flex justify-between items-center text-sm">
+        <span
+          :class="product.stock === 0 ? 'text-error' : 'text-primary'"
+          class="font-semibold"
+        >
+          {{ product.stock > 0 ? `Stock: ${product.stock}` : "Out of Stock" }}
+        </span>
+      </div>
+
+      <div class="card-actions justify-between items-center mt-4">
+        <div>
+          <p
+            class="block text-sm font-black base-300 opacity-50 line-through"
+            v-if="product.discount > 0"
+          >
+            $ {{ product.price }}
+          </p>
+          <span class="text-2xl font-black text-primary"
+            >${{ discountedPrice }}</span
+          >
+        </div>
+        <div class="flex gap-2">
+          <RouterLink :to="`/product/${product.id}`">
+            <button class="btn btn-primary btn-sm rounded-full px-6">
+              View
+            </button>
+          </RouterLink>
+          <button
+            class="btn btn-primary btn-sm rounded-full px-6"
+            @click="cartStore.addToCart(product)"
+            :disabled="product.stock === 0"
+          >
+            {{ product.stock === 0 ? "Out of Stock" : "Add to Cart" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <style scoped></style>
