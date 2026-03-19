@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Visualizer</title>
+    <script src="demo.js" defer></script>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: Arial, sans-serif;
+            --page-bg: linear-gradient(135deg, #eef6ff 0%, #f8fafc 50%, #e0f2fe 100%);
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --text: #0f172a;
+            --muted: #475569;
+            --border: #cbd5e1;
+            --accent: #0f766e;
+            --accent-strong: #115e59;
+            --canvas-bg: #0f172a;
+            --bar: #67e8f9;
+            --bar-done: #22c55e;
+            --error-bg: #fee2e2;
+            --error-border: #fca5a5;
+            --success-bg: #dcfce7;
+            --success-border: #86efac;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: var(--page-bg);
+            color: var(--text);
+        }
+
+        .card {
+            width: min(960px, 100%);
+            padding: 24px;
+            border-radius: 24px;
+            background: var(--card-bg);
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+            backdrop-filter: blur(8px);
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        .intro {
+            margin: 0 0 20px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field.wide {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: 700;
+        }
+
+        input,
+        select,
+        button {
+            width: 100%;
+            border-radius: 14px;
+            font-size: 1rem;
+        }
+
+        input,
+        select {
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            background: #fff;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        button {
+            width: auto;
+            min-width: 160px;
+            padding: 12px 18px;
+            border: 0;
+            background: var(--accent);
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: var(--accent-strong);
+        }
+
+        button.secondary {
+            background: #1d4ed8;
+        }
+
+        .result {
+            margin-bottom: 18px;
+            padding: 16px;
+            border: 1px solid transparent;
+            border-radius: 16px;
+            background: #e2e8f0;
+        }
+
+        .result-title {
+            margin: 0 0 8px;
+            font-weight: 700;
+        }
+
+        .result-output,
+        .result-meta {
+            margin: 0;
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+        }
+
+        .result-meta {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .result.success {
+            background: var(--success-bg);
+            border-color: var(--success-border);
+        }
+
+        .result.error {
+            background: var(--error-bg);
+            border-color: var(--error-border);
+            color: #b91c1c;
+        }
+
+        .visualizer {
+            padding: 18px;
+            border-radius: 20px;
+            background: rgba(15, 23, 42, 0.04);
+        }
+
+        .visualizer-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
+
+        .visualizer-title {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .visualizer-note {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 16px;
+            background: var(--canvas-bg);
+        }
+
+        @media (max-width: 720px) {
+            .controls {
+                grid-template-columns: 1fr;
+            }
+
+            .visualizer-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="card">
+        <h1>Sorting Visualizer</h1>
+        <p class="intro">
+            Enter numbers separated by commas or spaces, choose a sorting algorithm, and watch the values
+            animate on the canvas.
+        </p>
+
+        <section class="controls" aria-label="Sorting controls">
+            <div class="field wide">
+                <label for="numbers">Numbers</label>
+                <input id="numbers" type="text" value="10, 7, 8, 9, 1, 5, 12, 4, 3"
+                    placeholder="Example: 10, 7, 8, 9, 1, 5">
+            </div>
+
+            <div class="field">
+                <label for="algorithm">Algorithm</label>
+                <select id="algorithm">
+                    <option value="quick">QuickSort</option>
+                    <option value="builtin">JavaScript Built-in Sort</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="speed">Animation Speed</label>
+                <select id="speed">
+                    <option value="30">Fast</option>
+                    <option value="90" selected>Normal</option>
+                    <option value="180">Slow</option>
+                </select>
+            </div>
+        </section>
+
+        <div class="actions">
+            <button id="sortButton" type="button">Sort and Visualize</button>
+            <button id="sampleButton" class="secondary" type="button">Random Sample</button>
+        </div>
+
+        <section id="result" class="result" aria-live="polite">
+            <p id="resultTitle" class="result-title">Result</p>
+            <p id="resultOutput" class="result-output">Sorted numbers will appear here.</p>
+            <p id="resultMeta" class="result-meta">Choose an algorithm to compare how the same data is handled.</p>
+        </section>
+
+        <section class="visualizer">
+            <div class="visualizer-header">
+                <h2 class="visualizer-title">Canvas Visualization</h2>
+                <p id="visualizerNote" class="visualizer-note">Bars represent the current order of the array.</p>
+            </div>
+            <canvas id="chart" width="880" height="360"></canvas>
+        </section>
+    </main>
+
+    <script>
+        const input = document.getElementById("numbers");
+        const algorithm = document.getElementById("algorithm");
+        const speed = document.getElementById("speed");
+        const sortButton = document.getElementById("sortButton");
+        const sampleButton = document.getElementById("sampleButton");
+        const result = document.getElementById("result");
+        const resultTitle = document.getElementById("resultTitle");
+        const resultOutput = document.getElementById("resultOutput");
+        const resultMeta = document.getElementById("resultMeta");
+        const visualizerNote = document.getElementById("visualizerNote");
+        const canvas = document.getElementById("chart");
+        const context = canvas.getContext("2d");
+
+        let animationToken = 0;
+
+        function parseNumbers(value) {
+            const parts = value.split(/[\s,]+/).filter(Boolean);
+
+            if (parts.length === 0) {
+                throw new Error("Please enter at least one number.");
+            }
+
+            const numbers = parts.map((part) => Number(part));
+
+            if (numbers.some(Number.isNaN)) {
+                throw new Error("Use only valid numbers separated by commas or spaces.");
+            }
+
+            return numbers;
+        }
+
+        function renderResult(title, message, state, meta) {
+            resultTitle.textContent = title;
+            resultOutput.textContent = message;
+            resultMeta.textContent = meta;
+            result.classList.remove("success", "error");
+            result.classList.add(state);
+        }
+
+        function drawBars(values, isFinalFrame = false) {
+            const width = canvas.width;
+            const height = canvas.height;
+            context.clearRect(0, 0, width, height);
+
+            if (values.length === 0) {
+                return;
+            }
+
+            const minValue = Math.min(...values);
+            const maxValue = Math.max(...values);
+            const range = maxValue - minValue || 1;
+            const barWidth = width / values.length;
+
+            values.forEach((value, index) => {
+                const normalized = (value - minValue) / range;
+                const barHeight = Math.max(8, normalized * (height - 48) + 8);
+                const x = index * barWidth + 1;
+                const y = height - barHeight - 24;
+
+                context.fillStyle = isFinalFrame ? "#22c55e" : "#67e8f9";
+                context.fillRect(x, y, Math.max(2, barWidth - 2), barHeight);
+
+                if (values.length <= 24) {
+                    context.fillStyle = "#e2e8f0";
+                    context.font = "12px Arial";
+                    context.textAlign = "center";
+                    context.fillText(String(value), x + Math.max(2, barWidth - 2) / 2, height - 8);
+                }
+            });
+        }
+
+        function animateSteps(steps, delay) {
+            const token = ++animationToken;
+            let index = 0;
+
+            function renderNextFrame() {
+                if (token !== animationToken) {
+                    return;
+                }
+
+                const isFinalFrame = index === steps.length - 1;
+                drawBars(steps[index], isFinalFrame);
+
+                if (index < steps.length - 1) {
+                    index += 1;
+                    window.setTimeout(renderNextFrame, delay);
+                }
+            }
+
+            renderNextFrame();
+        }
+
+        function getAlgorithmRunner(name) {
+            if (name === "builtin") {
+                return {
+                    label: "JavaScript Built-in Sort",
+                    run: window.builtInSortSteps,
+                    note: "The browser does not expose built-in sort internals, so the canvas shows start and end states.",
+                };
+            }
+
+            return {
+                label: "QuickSort",
+                run: window.quickSortSteps,
+                note: "Canvas frames are recorded from QuickSort swaps as the array is partitioned.",
+            };
+        }
+
+        function runSort() {
+            try {
+                const numbers = parseNumbers(input.value);
+                const selected = getAlgorithmRunner(algorithm.value);
+                const { sorted, steps } = selected.run(numbers);
+                const frameDelay = Number(speed.value);
+
+                visualizerNote.textContent = selected.note;
+                renderResult(
+                    `${selected.label} Completed`,
+                    sorted.join(", "),
+                    "success",
+                    `${steps.length} frame(s) rendered for ${numbers.length} value(s).`
+                );
+                animateSteps(steps, frameDelay);
+            } catch (error) {
+                renderResult("Input Error", error.message, "error", "Fix the numbers and try again.");
+            }
+        }
+
+        function generateSample() {
+            const values = Array.from({ length: 18 }, () => Math.floor(Math.random() * 90) + 10);
+            input.value = values.join(", ");
+            drawBars(values);
+            renderResult("Sample Ready", "Random numbers generated.", "success", "Press Sort and Visualize to animate.");
+        }
+
+        sortButton.addEventListener("click", runSort);
+        sampleButton.addEventListener("click", generateSample);
+
+        input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                runSort();
+            }
+        });
+
+        drawBars(parseNumbers(input.value));
+    </script>
+</body>
+
+</html>
