@@ -6,7 +6,7 @@ public class BookFactory {
         return createBook(type, title, false);
     }
 
-    public static Book createBook(String type, String title, boolean isPremium) {
+    public static BookInterface createBook(String type, String title, boolean isPremium) {
         Book newBook = null;
         switch (type) {
             case "Physical":
