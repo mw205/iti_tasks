@@ -1,3 +1,6 @@
 [submodule "php/cafeteria_project_php"]
 	path = php/cafeteria_project_php
 	url = https://github.com/MostafaAbdelmajied/cafeteria_project_php
+[submodule "design_patterns/librarySystem"]
+	path = design_patterns/librarySystem
+	url = https://github.com/mw205/library_system
