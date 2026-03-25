@@ -1,0 +1,3 @@
+[submodule "php/cafeteria_project_php"]
+	path = php/cafeteria_project_php
+	url = https://github.com/MostafaAbdelmajied/cafeteria_project_php
