@@ -1,11 +1,15 @@
+package library;
+
 public class User {
+
     private String name;
     private boolean isPremium;
+
     public User(String name) {
         this.name = name;
     }
 
-    public User( String name,boolean isPremium) {
+    public User(String name, boolean isPremium) {
         this.isPremium = isPremium;
         this.name = name;
     }
@@ -25,6 +29,5 @@ public class User {
     public void setPremium(boolean premium) {
         isPremium = premium;
     }
-
 
 }

@@ -1,13 +1,24 @@
+package library;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class LibraryService {
-    private LibraryService instance;
-    private List<Book> books = new ArrayList<>();
 
-    LibraryService(){
+    private static LibraryService instance;
+    private final List<Book> books = new ArrayList<>();
+
+    private LibraryService() {
 
     }
+
+    static public LibraryService getInstance() {
+        if (instance != null) {
+            instance = new LibraryService();
+        }
+        return instance;
+    }
+
     public void addBook(Book book) {
         books.add(book);
     }
@@ -21,7 +32,7 @@ public class LibraryService {
         return null;
     }
 
-    public void borrowBook(String title,User user) {
+    public void borrowBook(String title, User user) {
         Book book = findBook(title);
         if (book != null) {
             book.borrowBook(user);
