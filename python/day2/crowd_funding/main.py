@@ -1,5 +1,5 @@
-from crowd_funding.auth import login, register
-from crowd_funding.projects import create_project, list_projects, edit_project, delete_project, search_by_date
+from auth import login, register
+from projects import create_project, list_projects, edit_project, delete_project, search_by_date
 
 
 def project_menu(user_email: str):

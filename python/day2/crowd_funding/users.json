@@ -1,18 +1,1 @@
-[
-  {
-    "id": 3,
-    "first_name": "adf",
-    "last_name": "adf",
-    "password": "7a2e23bc92df6f74c7c646eebae3ba8ddff964c2332f430ba442c7ce20231caf",
-    "email": "mw@mw.com",
-    "phone_number": "01092219807"
-  },
-  {
-    "id": 4,
-    "first_name": "mohamed",
-    "last_name": "adf",
-    "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
-    "email": "am@am.com",
-    "phone_number": "01092219806"
-  }
-]
+[{"id": 3, "first_name": "adf", "last_name": "adf", "password": "7a2e23bc92df6f74c7c646eebae3ba8ddff964c2332f430ba442c7ce20231caf", "email": "mw@mw.com", "phone_number": "01092219807"}, {"id": 4, "first_name": "mohamed", "last_name": "adf", "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", "email": "am@am.com", "phone_number": "01092219806"}, {"id": 5, "first_name": "Mohamed", "last_name": "Waleed", "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", "email": "1@gmail.com", "phone_number": "01092219805"}, {"id": 6, "first_name": "adf", "last_name": "adfg", "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", "email": "mw@mwc.com", "phone_number": "01092219804"}]

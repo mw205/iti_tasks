@@ -1,7 +1,7 @@
 import datetime as date
 import hashlib
 
-from crowd_funding.helpers.json_helpers import read_json
+from helpers.json_helpers import read_json
 
 
 def hash_password(password: str) -> str:

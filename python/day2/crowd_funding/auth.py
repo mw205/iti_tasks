@@ -1,5 +1,5 @@
-from crowd_funding.helpers.json_helpers import read_json, write_json
-from crowd_funding.helpers.my_helpers import hash_password, last_inserted_id, email_exists
+from helpers.json_helpers import read_json, write_json
+from helpers.my_helpers import hash_password, last_inserted_id, email_exists
 from validators.custom_validators import *
 
 

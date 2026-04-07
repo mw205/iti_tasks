@@ -1,6 +1,6 @@
 import datetime
-from crowd_funding.helpers.json_helpers import read_json, write_json
-from crowd_funding.helpers.my_helpers import is_a_next_date, validate_end_date, last_inserted_id
+from helpers.json_helpers import read_json, write_json
+from helpers.my_helpers import is_a_next_date, validate_end_date, last_inserted_id
 from validators.custom_validators import validate_name, validate_date
 
 
