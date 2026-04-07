@@ -1,0 +1,130 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<style>
+    .authors-hero,
+    .author-card,
+    .authors-note {
+        background: var(--surface);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+    }
+
+    .authors-hero {
+        padding: 32px;
+        margin-top: 24px;
+    }
+
+    .authors-hero p,
+    .author-card p,
+    .authors-note p {
+        color: var(--muted);
+        line-height: 1.75;
+    }
+
+    .authors-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 24px;
+    }
+
+    .author-card {
+        overflow: hidden;
+    }
+
+    .author-portrait {
+        min-height: 240px;
+        display: grid;
+        place-items: end start;
+        padding: 22px;
+        color: #fff8f2;
+        background: linear-gradient(160deg, #cf7c52, #7d3f2c);
+        font-size: 1.5rem;
+        letter-spacing: -0.03em;
+    }
+
+    .author-portrait.alt {
+        background: linear-gradient(160deg, #707d61, #334135);
+    }
+
+    .author-portrait.third {
+        background: linear-gradient(160deg, #4a5a74, #222f45);
+    }
+
+    .author-body {
+        padding: 22px;
+    }
+
+    .author-meta {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(73, 53, 39, 0.08);
+        color: var(--muted);
+    }
+
+    .authors-note {
+        margin-top: 24px;
+        padding: 24px 28px;
+    }
+
+    @media (max-width: 960px) {
+        .authors-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<section class="authors-hero">
+    <span class="eyebrow">Authors</span>
+    <h1>Writers featured across the curated shelves.</h1>
+    <p class="lead">
+        This page stays fully hardcoded for now. It acts as a visual outline for an authors index without
+        pulling data from any view or model.
+    </p>
+</section>
+
+<section class="authors-grid">
+    <article class="author-card">
+        <div class="author-portrait">James Clear</div>
+        <div class="author-body">
+            <span class="label">Habits & Productivity</span>
+            <h2>James Clear</h2>
+            <p>
+                Known for clear frameworks and practical writing about behavior, consistency, and personal
+                systems.
+            </p>
+            <div class="author-meta">Featured title: Atomic Habits</div>
+        </div>
+    </article>
+
+    <article class="author-card">
+        <div class="author-portrait alt">Cal Newport</div>
+        <div class="author-body">
+            <span class="label">Focus & Work</span>
+            <h2>Cal Newport</h2>
+            <p>
+                Writes about concentration, digital habits, and building a more intentional professional
+                life.
+            </p>
+            <div class="author-meta">Featured title: Deep Work</div>
+        </div>
+    </article>
+
+    <article class="author-card">
+        <div class="author-portrait third">Robert C. Martin</div>
+        <div class="author-body">
+            <span class="label">Software Craft</span>
+            <h2>Robert C. Martin</h2>
+            <p>
+                A prominent voice in software craftsmanship, readability, and maintainable code design.
+            </p>
+            <div class="author-meta">Featured title: Clean Code</div>
+        </div>
+    </article>
+</section>
+
+
+{% endblock %}

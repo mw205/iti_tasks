@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Atelier</title>
+    <style>
+        :root {
+            --bg: #f4efe7;
+            --surface: rgba(255, 251, 245, 0.82);
+            --surface-strong: #fffaf2;
+            --ink: #1f1b18;
+            --muted: #65584d;
+            --line: rgba(73, 53, 39, 0.14);
+            --accent: #b85c38;
+            --accent-dark: #8f3f22;
+            --accent-soft: #f2d8c8;
+            --olive: #5d6b52;
+            --shadow: 0 24px 60px rgba(60, 33, 14, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(184, 92, 56, 0.15), transparent 30%),
+                radial-gradient(circle at right center, rgba(93, 107, 82, 0.14), transparent 28%),
+                linear-gradient(180deg, #f8f2eb 0%, var(--bg) 55%, #efe6da 100%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page-shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 56px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 10px 0 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.95rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .brand-mark {
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent), #d58d63);
+            color: #fff7f2;
+            font-size: 1.1rem;
+            box-shadow: 0 16px 30px rgba(184, 92, 56, 0.24);
+        }
+
+        .nav {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.3fr 0.9fr;
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .hero-copy,
+        .hero-card,
+        .section-card,
+        .newsletter {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-copy {
+            padding: 54px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(184, 92, 56, 0.1);
+            color: var(--accent-dark);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        h1 {
+            margin: 22px 0 18px;
+            font-size: clamp(2.8rem, 6vw, 5.4rem);
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+        }
+
+        .lead {
+            max-width: 50ch;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            color: var(--muted);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 150px;
+            padding: 14px 22px;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .button.primary {
+            background: var(--ink);
+            color: #fffaf2;
+            box-shadow: 0 14px 30px rgba(31, 27, 24, 0.18);
+        }
+
+        .button.secondary {
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--ink);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .mini-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 34px;
+        }
+
+        .stat {
+            padding: 18px;
+            border-radius: 20px;
+            background: rgba(255, 250, 242, 0.75);
+            border: 1px solid rgba(73, 53, 39, 0.08);
+        }
+
+        .stat strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.5rem;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .hero-card {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background:
+                linear-gradient(180deg, rgba(93, 107, 82, 0.12), rgba(255, 251, 245, 0.88)),
+                var(--surface);
+        }
+
+        .stack {
+            display: grid;
+            gap: 14px;
+        }
+
+        .book-tile {
+            display: grid;
+            grid-template-columns: 86px 1fr;
+            gap: 16px;
+            padding: 14px;
+            border-radius: 22px;
+            background: rgba(255, 252, 247, 0.88);
+            border: 1px solid rgba(73, 53, 39, 0.08);
+        }
+
+        .book-cover {
+            min-height: 122px;
+            border-radius: 18px;
+            background: linear-gradient(160deg, #cf7c52, #7d3f2c);
+            color: #fff8f2;
+            display: flex;
+            align-items: flex-end;
+            padding: 14px;
+            font-size: 1.1rem;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .book-cover.alt {
+            background: linear-gradient(160deg, #707d61, #334135);
+        }
+
+        .book-meta {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .label {
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+        }
+
+        .book-meta p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.94rem;
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .section-card {
+            padding: 30px;
+        }
+
+        .shelf-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .shelf {
+            padding: 18px;
+            border-radius: 22px;
+            background: var(--surface-strong);
+            border: 1px solid rgba(73, 53, 39, 0.08);
+        }
+
+        .shelf-number {
+            display: inline-block;
+            margin-bottom: 26px;
+            color: var(--muted);
+            font-size: 0.84rem;
+        }
+
+        .shelf h3 {
+            margin-bottom: 10px;
+            font-size: 1.35rem;
+        }
+
+        .shelf p,
+        .list-item p,
+        .newsletter p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .list {
+            display: grid;
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .list-item {
+            padding: 18px 20px;
+            border-radius: 20px;
+            background: var(--surface-strong);
+            border: 1px solid rgba(73, 53, 39, 0.08);
+        }
+
+        .list-item strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .newsletter {
+            margin-top: 24px;
+            padding: 34px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            align-items: center;
+            background:
+                linear-gradient(135deg, rgba(184, 92, 56, 0.1), rgba(93, 107, 82, 0.08)),
+                var(--surface);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        input[type="email"] {
+            flex: 1 1 240px;
+            min-width: 0;
+            padding: 15px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(73, 53, 39, 0.14);
+            background: rgba(255, 251, 245, 0.9);
+            font: inherit;
+        }
+
+        .quote-card {
+            padding: 22px;
+            border-radius: 24px;
+            background: rgba(255, 250, 242, 0.82);
+            border: 1px solid rgba(73, 53, 39, 0.08);
+        }
+
+        .quote-card blockquote {
+            margin: 0 0 14px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .quote-card span {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .site-footer {
+            margin-top: 24px;
+            padding: 28px 32px;
+            display: grid;
+            grid-template-columns: 1.1fr repeat(2, minmax(0, 0.7fr));
+            gap: 24px;
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .footer-note {
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 34ch;
+        }
+
+        .footer-links {
+            display: grid;
+            gap: 10px;
+            color: var(--muted);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-dark);
+        }
+
+        .footer-meta {
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 960px) {
+            .hero,
+            .section-grid,
+            .newsletter,
+            .site-footer {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-copy,
+            .section-card,
+            .newsletter,
+            .hero-card,
+            .site-footer {
+                padding: 26px;
+            }
+
+            .shelf-grid,
+            .mini-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page-shell {
+                width: min(100% - 20px, 1180px);
+                padding-top: 18px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 2.6rem;
+            }
+
+            .book-tile {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-actions,
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark">BA</div>
+                <div>
+                    <strong>Book Atelier</strong><br>
+                    <span>Stories arranged with care</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="#discover">Discover</a>
+                <a href="#collections">Collections</a>
+                <a href="#journal">Journal</a>
+                <a href="#subscribe">Subscribe</a>
+            </nav>
+        </header>
+
+        <main>
+            {% block content%}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <div>
+                <span class="label">Book Atelier</span>
+                <h2>Made for readers who prefer atmosphere with their browsing.</h2>
+                <p class="footer-note">
+                    A quiet corner for curated shelves, reflective notes, and book discoveries that feel
+                    personal from the first glance.
+                </p>
+                <p class="footer-meta">Open daily online. Built as a polished static storefront.</p>
+            </div>
+            <div>
+                <span class="label">Explore</span>
+                <div class="footer-links">
+                    <a href="#discover">Discover</a>
+                    <a href="#collections">Collections</a>
+                    <a href="#journal">Journal</a>
+                </div>
+            </div>
+            <div>
+                <span class="label">Stay Close</span>
+                <div class="footer-links">
+                    <a href="#subscribe">Newsletter</a>
+                    <a href="mailto:hello@bookatelier.example">hello@bookatelier.example</a>
+                    <a href="#">Instagram Journal</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

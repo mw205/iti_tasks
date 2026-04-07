@@ -1,0 +1,113 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<style>
+    .about-hero,
+    .about-story,
+    .about-values,
+    .about-note,
+    .value-card {
+        background: var(--surface);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+    }
+
+    .about-hero {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 24px;
+        padding: 32px;
+        margin-top: 24px;
+    }
+
+    .about-copy p,
+    .about-story p,
+    .about-note p,
+    .value-card p {
+        color: var(--muted);
+        line-height: 1.75;
+    }
+
+    .about-copy h1 {
+        font-size: clamp(2.5rem, 5vw, 4.6rem);
+        margin-bottom: 16px;
+    }
+
+    .about-highlight {
+        padding: 24px;
+        background:
+            linear-gradient(180deg, rgba(93, 107, 82, 0.1), rgba(255, 251, 245, 0.88)),
+            var(--surface);
+        border-radius: 24px;
+    }
+
+    .about-story,
+    .about-note {
+        margin-top: 24px;
+        padding: 30px;
+    }
+
+    .about-values {
+        margin-top: 24px;
+        padding: 30px;
+    }
+
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 22px;
+    }
+
+    .value-card {
+        padding: 22px;
+        background: var(--surface-strong);
+        box-shadow: none;
+    }
+
+    @media (max-width: 960px) {
+        .about-hero,
+        .values-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+
+<section class="about-story">
+    <span class="label">Our Story</span>
+    <h2>Built around deliberate reading and well-made shelves</h2>
+    <p>
+        Book Atelier began as a simple idea: online bookstores do not need to feel rushed or mechanical.
+        This section is the long-form brand narrative area where you can later describe the project,
+        mission, and personality in more depth.
+    </p>
+    <p>
+        For now, the content stays hardcoded and presentational so the page can be reviewed visually
+        before any real text or CMS-style data is introduced.
+    </p>
+</section>
+
+<section class="about-values">
+    <span class="label">What Matters</span>
+    <h2>Three values that shape the shop</h2>
+    <div class="values-grid">
+        <article class="value-card">
+            <h3>Curated Selection</h3>
+            <p>Every shelf should feel edited, coherent, and worthy of attention.</p>
+        </article>
+        <article class="value-card">
+            <h3>Calm Experience</h3>
+            <p>The design favors clarity, atmosphere, and deliberate browsing over noise.</p>
+        </article>
+        <article class="value-card">
+            <h3>Reader Trust</h3>
+            <p>Descriptions, recommendations, and details should feel useful rather than promotional.</p>
+        </article>
+    </div>
+</section>
+
+
+{% endblock %}
