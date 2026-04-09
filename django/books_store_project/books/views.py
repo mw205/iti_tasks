@@ -25,7 +25,6 @@ def create(request):
             book.image = form.cleaned_data["image"]
             book.no_of_page = form.cleaned_data["no_of_page"]
             book.price = form.cleaned_data["price"]
-            # Save the string representation (name) of the author
             book.author = str(form.cleaned_data["author"])
             book.save()
             return redirect(reverse("books:show", args=[book.id]))
