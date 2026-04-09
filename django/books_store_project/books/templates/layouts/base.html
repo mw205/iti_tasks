@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Book Atelier</title>
     <style>
         :root {
@@ -27,10 +27,17 @@
             margin: 0;
             font-family: Georgia, "Times New Roman", serif;
             color: var(--ink);
-            background:
-                radial-gradient(circle at top left, rgba(184, 92, 56, 0.15), transparent 30%),
-                radial-gradient(circle at right center, rgba(93, 107, 82, 0.14), transparent 28%),
-                linear-gradient(180deg, #f8f2eb 0%, var(--bg) 55%, #efe6da 100%);
+            background: radial-gradient(
+                    circle at top left,
+                    rgba(184, 92, 56, 0.15),
+                    transparent 30%
+            ),
+            radial-gradient(
+                    circle at right center,
+                    rgba(93, 107, 82, 0.14),
+                    transparent 28%
+            ),
+            linear-gradient(180deg, #f8f2eb 0%, var(--bg) 55%, #efe6da 100%);
         }
 
         a {
@@ -152,7 +159,8 @@
             padding: 14px 22px;
             border-radius: 999px;
             font-size: 0.95rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease,
+            box-shadow 0.2s ease;
         }
 
         .button.primary {
@@ -201,9 +209,12 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background:
-                linear-gradient(180deg, rgba(93, 107, 82, 0.12), rgba(255, 251, 245, 0.88)),
-                var(--surface);
+            background: linear-gradient(
+                    180deg,
+                    rgba(93, 107, 82, 0.12),
+                    rgba(255, 251, 245, 0.88)
+            ),
+            var(--surface);
         }
 
         .stack {
@@ -329,9 +340,12 @@
             grid-template-columns: 1.2fr 0.8fr;
             gap: 24px;
             align-items: center;
-            background:
-                linear-gradient(135deg, rgba(184, 92, 56, 0.1), rgba(93, 107, 82, 0.08)),
-                var(--surface);
+            background: linear-gradient(
+                    135deg,
+                    rgba(184, 92, 56, 0.1),
+                    rgba(93, 107, 82, 0.08)
+            ),
+            var(--surface);
         }
 
         .newsletter-form {
@@ -456,54 +470,57 @@
     </style>
 </head>
 <body>
-    <div class="page-shell">
-        <header class="topbar">
+<div class="page-shell">
+    <header class="topbar">
+        <a href="/books/index/">
             <div class="brand">
                 <div class="brand-mark">BA</div>
                 <div>
-                    <strong>Book Atelier</strong><br>
+                    <strong>Book Atelier</strong><br/>
                     <span>Stories arranged with care</span>
                 </div>
             </div>
-            <nav class="nav">
+        </a>
+        <nav class="nav">
+            <a href="{% url 'authors:index' %}">Authors</a>
+            <a href="{% url 'contactus:index' %}">Contact us</a>
+            <a href="{% url 'aboutus:index' %}">About us</a>
+        </nav>
+    </header>
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <footer class="site-footer">
+        <div>
+            <span class="label">Book Atelier</span>
+            <h2>Made for readers who prefer atmosphere with their browsing.</h2>
+            <p class="footer-note">
+                A quiet corner for curated shelves, reflective notes, and book
+                discoveries that feel personal from the first glance.
+            </p>
+            <p class="footer-meta">
+                Open daily online. Built as a polished static storefront.
+            </p>
+        </div>
+        <div>
+            <span class="label">Explore</span>
+            <div class="footer-links">
                 <a href="#discover">Discover</a>
                 <a href="#collections">Collections</a>
                 <a href="#journal">Journal</a>
-                <a href="#subscribe">Subscribe</a>
-            </nav>
-        </header>
-
-        <main>
-            {% block content%}{% endblock %}
-        </main>
-
-        <footer class="site-footer">
-            <div>
-                <span class="label">Book Atelier</span>
-                <h2>Made for readers who prefer atmosphere with their browsing.</h2>
-                <p class="footer-note">
-                    A quiet corner for curated shelves, reflective notes, and book discoveries that feel
-                    personal from the first glance.
-                </p>
-                <p class="footer-meta">Open daily online. Built as a polished static storefront.</p>
             </div>
-            <div>
-                <span class="label">Explore</span>
-                <div class="footer-links">
-                    <a href="#discover">Discover</a>
-                    <a href="#collections">Collections</a>
-                    <a href="#journal">Journal</a>
-                </div>
+        </div>
+        <div>
+            <span class="label">Stay Close</span>
+            <div class="footer-links">
+                <a href="#subscribe">Newsletter</a>
+                <a href="mailto:hello@bookatelier.example"
+                >hello@bookatelier.example</a
+                >
+                <a href="#">Instagram Journal</a>
             </div>
-            <div>
-                <span class="label">Stay Close</span>
-                <div class="footer-links">
-                    <a href="#subscribe">Newsletter</a>
-                    <a href="mailto:hello@bookatelier.example">hello@bookatelier.example</a>
-                    <a href="#">Instagram Journal</a>
-                </div>
-            </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
+</div>
 </body>
 </html>

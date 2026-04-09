@@ -78,7 +78,11 @@
 
     <section class="detail-layout">
         <div class="detail-cover">
-            <img src="{% static 'books/images/' %}{{ book.image }}" alt="{{ book.title }} cover">
+            {% if book.image %}
+                <img src="{{ book.image.url }}" alt="{{ book.title }} cover">
+            {% else %}
+                <div style="padding: 100px; text-align: center; color: var(--muted);">No Cover Uploaded</div>
+            {% endif %}
         </div>
 
         <div class="detail-copy">
@@ -99,6 +103,11 @@
             <div class="detail-fact" style="margin-top: 8px">
                 <span class="label">Author</span>
                 <strong>{{ book.author }}</strong>
+            </div>
+
+            <div class="actions" style="margin-top: 32px; display: flex; gap: 16px;">
+                <a class="btn btn-save" href="{% url 'books:edit' book.id %}" style="background: var(--ink); color: #fffaf2; text-decoration: none; padding: 14px 22px; border-radius: 999px; flex: 1; text-align: center;">Edit Book</a>
+                <a class="btn btn-cancel" href="{% url 'books:delete' book.id %}" style="background: rgba(143, 63, 34, 0.12); border: 1px solid rgba(143, 63, 34, 0.2); color: var(--accent-dark); text-decoration: none; padding: 14px 22px; border-radius: 999px; flex: 1; text-align: center;">Delete Book</a>
             </div>
         </div>
     </section>
