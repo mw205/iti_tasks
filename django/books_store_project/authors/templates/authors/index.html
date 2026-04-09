@@ -1,157 +1,156 @@
 {% extends 'layouts/base.html' %} {% block content %}
-<style>
-  .section-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
+    <style>
+        .section-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
 
-  .authors-hero,
-  .author-card,
-  .authors-note {
-    background: var(--surface);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--line);
-    border-radius: 28px;
-    box-shadow: var(--shadow);
-  }
+        .authors-hero,
+        .author-card,
+        .authors-note {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+        }
 
-  .authors-hero {
-    padding: 32px;
-    margin-top: 24px;
-  }
+        .authors-hero {
+            padding: 32px;
+            margin-top: 24px;
+        }
 
-  .authors-hero p,
-  .author-card p,
-  .authors-note p {
-    color: var(--muted);
-    line-height: 1.75;
-  }
+        .authors-hero p,
+        .author-card p,
+        .authors-note p {
+            color: var(--muted);
+            line-height: 1.75;
+        }
 
-  .authors-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-    margin-top: 24px;
-  }
+        .authors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
 
-  .author-card {
-    overflow: hidden;
-  }
+        .author-card {
+            overflow: hidden;
+        }
 
-  .author-card-shell {
-    display: grid;
-    gap: 14px;
-  }
+        .author-card-shell {
+            display: grid;
+            gap: 14px;
+        }
 
-  .author-portrait {
-    min-height: 240px;
-    display: grid;
-    place-items: end start;
-    padding: 22px;
-    color: #fff8f2;
-    background: linear-gradient(160deg, #cf7c52, #7d3f2c);
-    font-size: 1.5rem;
-    letter-spacing: -0.03em;
-  }
+        .author-portrait {
+            min-height: 240px;
+            display: grid;
+            place-items: end start;
+            padding: 22px;
+            color: #fff8f2;
+            background: linear-gradient(160deg, #cf7c52, #7d3f2c);
+            font-size: 1.5rem;
+            letter-spacing: -0.03em;
+        }
 
-  .author-portrait.alt {
-    background: linear-gradient(160deg, #707d61, #334135);
-  }
+        .author-portrait.alt {
+            background: linear-gradient(160deg, #707d61, #334135);
+        }
 
-  .author-portrait.third {
-    background: linear-gradient(160deg, #4a5a74, #222f45);
-  }
+        .author-portrait.third {
+            background: linear-gradient(160deg, #4a5a74, #222f45);
+        }
 
-  .author-body {
-    padding: 22px;
-  }
+        .author-body {
+            padding: 22px;
+        }
 
-  .author-meta {
-    margin-top: 18px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(73, 53, 39, 0.08);
-    color: var(--muted);
-  }
+        .author-meta {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(73, 53, 39, 0.08);
+            color: var(--muted);
+        }
 
-  .authors-note {
-    margin-top: 24px;
-    padding: 24px 28px;
-  }
+        .authors-note {
+            margin-top: 24px;
+            padding: 24px 28px;
+        }
 
-  .author-actions {
-    display: flex;
-    gap: 10px;
-    padding: 0 6px 6px;
-  }
+        .author-actions {
+            display: flex;
+            gap: 10px;
+            padding: 0 6px 6px;
+        }
 
-  .action-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 18px;
-    border-radius: 999px;
-    font-size: 0.92rem;
-    border: 1px solid var(--line);
-    background: rgba(255, 250, 242, 0.8);
-    transition:
-      transform 0.2s ease,
-      background 0.2s ease,
-      color 0.2s ease;
-  }
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-size: 0.92rem;
+            border: 1px solid var(--line);
+            background: rgba(255, 250, 242, 0.8);
+            transition: transform 0.2s ease,
+            background 0.2s ease,
+            color 0.2s ease;
+        }
 
-  .action-button:hover {
-    transform: translateY(-2px);
-  }
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
 
-  .action-button.add,
-  .action-button.edit {
-    color: var(--ink);
-  }
+        .action-button.add,
+        .action-button.edit {
+            color: var(--ink);
+        }
 
-  .action-button.delete {
-    background: rgba(143, 63, 34, 0.12);
-    border-color: rgba(143, 63, 34, 0.2);
-    color: var(--accent-dark);
-  }
+        .action-button.delete {
+            background: rgba(143, 63, 34, 0.12);
+            border-color: rgba(143, 63, 34, 0.2);
+            color: var(--accent-dark);
+        }
 
-  @media (max-width: 960px) {
-    .authors-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
+        @media (max-width: 960px) {
+            .authors-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 
-<section class="authors-hero">
-  <div class="section-toolbar">
-    <div>
-      <span class="eyebrow">Authors</span>
-      <h1>Writers featured across the curated shelves.</h1>
-    </div>
-    <a class="action-button add" href="/authors/create/">Add Author</a>
-  </div>
-</section>
+    <section class="authors-hero">
+        <div class="section-toolbar">
+            <div>
+                <span class="eyebrow">Authors</span>
+                <h1>Writers featured across the curated shelves.</h1>
+            </div>
+            <a class="action-button add" href="/authors/create/">Add Author</a>
+        </div>
+    </section>
 
-<section class="authors-grid">
-  {%for author in authors%}
-  <article class="author-card-shell">
-    <div class="author-card">
-      <div class="author-portrait">{{author.name}}</div>
-      <div class="author-body">
-        <span class="label">{{author.label}}</span>
-        <h2>{{author.name}}</h2>
-        <p>{{author.bio}}</p>
-        <div class="author-meta">Featured title:{{author.featured_title}}</div>
-      </div>
-    </div>
-    <div class="author-actions">
-      <a class="action-button edit" href="/authors/edit/{{ author.id }}/">Edit</a>
-      <a class="action-button delete" href="/authors/delete/{{ author.id }}/">Delete</a>
-    </div>
-  </article>
-  {%endfor%}
-</section>
+    <section class="authors-grid">
+        {% for author in authors %}
+            <article class="author-card-shell">
+                <div class="author-card">
+                    <div class="author-portrait">{{ author.name }}</div>
+                    <div class="author-body">
+                        <span class="label">{{ author.label }}</span>
+                        <h2>{{ author.name }}</h2>
+                        <p>{{ author.bio }}</p>
+                        <div class="author-meta">Featured title:{{ author.featured_title }}</div>
+                    </div>
+                </div>
+                <div class="author-actions">
+                    <a class="action-button edit" href="/authors/edit/{{ author.id }}">Edit</a>
+                    <a class="action-button delete" href="/authors/delete/{{ author.id }}">Delete</a>
+                </div>
+            </article>
+        {% endfor %}
+    </section>
 
 {% endblock %}
