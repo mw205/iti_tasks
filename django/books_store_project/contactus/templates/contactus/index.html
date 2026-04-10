@@ -1,152 +1,112 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-<style>
-    .contact-hero,
-    .contact-card,
-    .contact-form-shell {
-        background: var(--surface);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--line);
-        border-radius: 28px;
-        box-shadow: var(--shadow);
-    }
-
-    .contact-hero {
-        display: grid;
-        grid-template-columns: 1.05fr 0.95fr;
-        gap: 24px;
-        padding: 32px;
-        margin-top: 24px;
-    }
-
-    .contact-copy p,
-    .contact-card p,
-    .contact-form-shell p,
-    .contact-card li {
-        color: var(--muted);
-        line-height: 1.75;
-    }
-
-    .contact-copy h1 {
-        font-size: clamp(2.5rem, 5vw, 4.4rem);
-        margin-bottom: 16px;
-    }
-
-    .contact-stack {
-        display: grid;
-        gap: 16px;
-    }
-
-    .contact-card {
-        padding: 22px;
-    }
-
-    .contact-form-shell {
-        margin-top: 24px;
-        padding: 30px;
-    }
-
-    .contact-form-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
-        margin-top: 22px;
-    }
-
-    .contact-field {
-        display: grid;
-        gap: 8px;
-    }
-
-    .contact-field.full {
-        grid-column: 1 / -1;
-    }
-
-    .contact-field label {
-        font-size: 0.82rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--accent-dark);
-    }
-
-    .contact-field input,
-    .contact-field textarea {
-        width: 100%;
-        padding: 15px 18px;
-        border-radius: 20px;
-        border: 1px solid rgba(73, 53, 39, 0.14);
-        background: rgba(255, 251, 245, 0.9);
-        font: inherit;
-        color: var(--ink);
-    }
-
-    .contact-field textarea {
-        min-height: 180px;
-        resize: vertical;
-    }
-
-    @media (max-width: 960px) {
-        .contact-hero,
+    <style>
         .contact-form-grid {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 22px;
         }
-    }
-</style>
 
-<section class="contact-hero">
-    <div class="contact-copy">
-        <span class="eyebrow">Contact Us</span>
-        <h1>Reach the shop with a calm, structured contact page.</h1>
-        <p class="lead">
-            This outline is focused on presentation only. It sets up a clear contact experience with
-            support details, editorial tone, and a form layout ready for later wiring.
-        </p>
-        <div class="hero-actions">
-            <a class="button primary" href="#contact-form">Write a Message</a>
-            <a class="button secondary" href="#contact-details">View Contact Details</a>
-        </div>
-    </div>
+        .contact-field {
+            display: grid;
+            gap: 8px;
+        }
 
-    <div class="contact-stack" id="contact-details">
-        <article class="contact-card">
-            <span class="label">General Inquiries</span>
-            <h2>hello@bookatelier.example</h2>
-            <p>Use this channel for order questions, recommendations, partnerships, or shop updates.</p>
-        </article>
-        <article class="contact-card">
-            <span class="label">Studio Hours</span>
-            <p>Monday to Friday, 10:00 AM to 6:00 PM</p>
-            <p>Saturday, 11:00 AM to 4:00 PM</p>
-        </article>
-    </div>
-</section>
+        .contact-field.full {
+            grid-column: 1 / -1;
+        }
 
-<section class="contact-form-shell" id="contact-form">
-    <span class="label">Send A Note</span>
-    <h2>Contact form outline ready for future integration</h2>
-    <p>
-        The fields below are static placeholders for now. They define the final shape of the form
-        without adding submission logic yet.
-    </p>
+        .contact-field label {
+            font-size: 0.82rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+        }
 
-    <form class="contact-form-grid">
-        <div class="contact-field">
-            <label for="name">Full Name</label>
-            <input id="name" type="text" placeholder="Enter your full name">
+        .contact-field input,
+        .contact-field textarea {
+            width: 100%;
+            padding: 15px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(73, 53, 39, 0.14);
+            background: rgba(255, 251, 245, 0.9);
+            font: inherit;
+            color: var(--ink);
+        }
+
+        .contact-field textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        @media (max-width: 960px) {
+            .contact-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <section class="page-intro">
+        <div class="page-intro-copy panel">
+            <span class="eyebrow">Contact Us</span>
+            <h1>Reach the shop team with a clear, direct contact page.</h1>
+            <p class="lead">
+                Ask about books, availability, recommendations, or any issue related to the store.
+            </p>
+            <div class="hero-actions">
+                <a class="button primary" href="#contact-form">Write a Message</a>
+                <a class="button secondary" href="#contact-details">View Contact Details</a>
+            </div>
         </div>
-        <div class="contact-field">
-            <label for="email">Email Address</label>
-            <input id="email" type="email" placeholder="Enter your email address">
+        <aside class="page-intro-aside panel" id="contact-details">
+            <div>
+                <span class="label">Support Details</span>
+                <h2>Helpful channels for quick communication.</h2>
+            </div>
+            <div class="info-list">
+                <div class="info-item">
+                    <strong>General Inquiries</strong>
+                    hello@bookatelier.example
+                </div>
+                <div class="info-item">
+                    <strong>Studio Hours</strong>
+                    Monday to Friday, 10:00 AM to 6:00 PM
+                </div>
+                <div class="info-item">
+                    <strong>Weekend Window</strong>
+                    Saturday, 11:00 AM to 4:00 PM
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <section class="panel" id="contact-form" style="margin-top: 24px;">
+        <div class="section-heading">
+            <div>
+                <span class="label">Send A Note</span>
+                <h2>Tell us what you need</h2>
+            </div>
         </div>
-        <div class="contact-field full">
-            <label for="subject">Subject</label>
-            <input id="subject" type="text" placeholder="What would you like to ask about?">
-        </div>
-        <div class="contact-field full">
-            <label for="message">Message</label>
-            <textarea id="message" placeholder="Write your message here"></textarea>
-        </div>
-    </form>
-</section>
+
+        <form class="contact-form-grid">
+            <div class="contact-field">
+                <label for="name">Full Name</label>
+                <input id="name" type="text" placeholder="Enter your full name">
+            </div>
+            <div class="contact-field">
+                <label for="email">Email Address</label>
+                <input id="email" type="email" placeholder="Enter your email address">
+            </div>
+            <div class="contact-field full">
+                <label for="subject">Subject</label>
+                <input id="subject" type="text" placeholder="What would you like to ask about?">
+            </div>
+            <div class="contact-field full">
+                <label for="message">Message</label>
+                <textarea id="message" placeholder="Write your message here"></textarea>
+            </div>
+        </form>
+    </section>
 {% endblock %}

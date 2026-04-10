@@ -1,35 +1,6 @@
-{% extends 'layouts/base.html' %} {% block content %}
+{% extends 'layouts/base.html' %}
+{% block content %}
     <style>
-        .section-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .authors-hero,
-        .author-card,
-        .authors-note {
-            background: var(--surface);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--line);
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-        }
-
-        .authors-hero {
-            padding: 32px;
-            margin-top: 24px;
-        }
-
-        .authors-hero p,
-        .author-card p,
-        .authors-note p {
-            color: var(--muted);
-            line-height: 1.75;
-        }
-
         .authors-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -37,17 +8,28 @@
             margin-top: 24px;
         }
 
-        .author-card {
-            overflow: hidden;
+        .author-card-shell {
+            display: block;
         }
 
-        .author-card-shell {
-            display: grid;
-            gap: 14px;
+        .author-card {
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .author-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 64px rgba(60, 33, 14, 0.16);
         }
 
         .author-portrait {
-            min-height: 240px;
+            min-height: 260px;
             display: grid;
             place-items: end start;
             padding: 22px;
@@ -55,65 +37,57 @@
             background: linear-gradient(160deg, #cf7c52, #7d3f2c);
             font-size: 1.5rem;
             letter-spacing: -0.03em;
+            overflow: hidden;
+            position: relative;
         }
 
-        .author-portrait.alt {
-            background: linear-gradient(160deg, #707d61, #334135);
+        .author-portrait img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .author-portrait.third {
-            background: linear-gradient(160deg, #4a5a74, #222f45);
+        .author-portrait::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(20, 15, 12, 0.05), rgba(20, 15, 12, 0.42));
+        }
+
+        .author-portrait span {
+            position: relative;
+            z-index: 1;
         }
 
         .author-body {
             padding: 22px;
         }
 
+        .author-body p,
+        .author-meta {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .author-bio {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
         .author-meta {
             margin-top: 18px;
             padding-top: 16px;
             border-top: 1px solid rgba(73, 53, 39, 0.08);
-            color: var(--muted);
-        }
-
-        .authors-note {
-            margin-top: 24px;
-            padding: 24px 28px;
         }
 
         .author-actions {
             display: flex;
             gap: 10px;
-            padding: 0 6px 6px;
-        }
-
-        .action-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 18px;
-            border-radius: 999px;
-            font-size: 0.92rem;
-            border: 1px solid var(--line);
-            background: rgba(255, 250, 242, 0.8);
-            transition: transform 0.2s ease,
-            background 0.2s ease,
-            color 0.2s ease;
-        }
-
-        .action-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .action-button.add,
-        .action-button.edit {
-            color: var(--ink);
-        }
-
-        .action-button.delete {
-            background: rgba(143, 63, 34, 0.12);
-            border-color: rgba(143, 63, 34, 0.2);
-            color: var(--accent-dark);
+            margin-top: 18px;
         }
 
         @media (max-width: 960px) {
@@ -123,34 +97,74 @@
         }
     </style>
 
-    <section class="authors-hero">
-        <div class="section-toolbar">
+    <section class="page-intro">
+        <div class="page-intro-copy panel">
+            <span class="eyebrow">Authors</span>
+            <h1>Meet the writers behind the current collection.</h1>
+            <p class="lead">
+                Author pages now share the same visual language as the rest of the store and support profile images when available.
+            </p>
+        </div>
+        <aside class="page-intro-aside panel">
             <div>
-                <span class="eyebrow">Authors</span>
-                <h1>Writers featured across the curated shelves.</h1>
+                <span class="label">Author Directory</span>
+                <h2>Profiles, biographies, and related books in one consistent layout.</h2>
             </div>
-            <a class="action-button add" href="/authors/create/">Add Author</a>
+            <div class="info-list">
+                <div class="info-item">
+                    <strong>{{ authors|length }} authors</strong>
+                    Profiles currently available in the library.
+                </div>
+                <div class="info-item">
+                    <strong>Image support</strong>
+                    Author portraits appear automatically when an image is uploaded.
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <section class="panel" style="margin-top: 24px;">
+        <div class="section-heading">
+            <div>
+                <span class="label">Profiles</span>
+                <h2>Browse the author roster</h2>
+            </div>
+            <a class="action-button primary" href="{% url 'authors:create' %}">Add Author</a>
+        </div>
+
+        <div class="authors-grid">
+            {% for author in authors %}
+                <article class="author-card-shell">
+                    <div class="author-card">
+                        <a href="{% url 'authors:show' author.id %}">
+                            <div class="author-portrait">
+                                {% if author.image %}
+                                    <img src="{{ author.image.url }}" alt="{{ author.name }}">
+                                {% endif %}
+                                <span>{{ author.name }}</span>
+                            </div>
+                        </a>
+                        <div class="author-body">
+                            <a href="{% url 'authors:show' author.id %}">
+                                <span class="label">{{ author.get_gender_display }}</span>
+                                <h2>{{ author.name }}</h2>
+                                <p class="author-bio">{{ author.bio }}</p>
+                                <div class="author-meta">
+                                    {{ author.email|default:"No email provided" }}
+                                </div>
+                            </a>
+                            <div class="author-actions">
+                                <a class="action-button" href="{% url 'authors:edit' author.id %}">Edit</a>
+                                <a class="action-button delete" href="{% url 'authors:delete' author.id %}">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    No authors added yet.
+                </div>
+            {% endfor %}
         </div>
     </section>
-
-    <section class="authors-grid">
-        {% for author in authors %}
-            <article class="author-card-shell">
-                <div class="author-card">
-                    <div class="author-portrait">{{ author.name }}</div>
-                    <div class="author-body">
-                        <span class="label">{{ author.label }}</span>
-                        <h2>{{ author.name }}</h2>
-                        <p>{{ author.bio }}</p>
-                        <div class="author-meta">Featured title:{{ author.featured_title }}</div>
-                    </div>
-                </div>
-                <div class="author-actions">
-                    <a class="action-button edit" href="/authors/edit/{{ author.id }}">Edit</a>
-                    <a class="action-button delete" href="/authors/delete/{{ author.id }}">Delete</a>
-                </div>
-            </article>
-        {% endfor %}
-    </section>
-
 {% endblock %}

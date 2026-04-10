@@ -9,6 +9,7 @@
             --bg: #f4efe7;
             --surface: rgba(255, 251, 245, 0.82);
             --surface-strong: #fffaf2;
+            --surface-soft: rgba(255, 252, 247, 0.92);
             --ink: #1f1b18;
             --muted: #65584d;
             --line: rgba(73, 53, 39, 0.14);
@@ -17,6 +18,7 @@
             --accent-soft: #f2d8c8;
             --olive: #5d6b52;
             --shadow: 0 24px 60px rgba(60, 33, 14, 0.12);
+            --shadow-soft: 0 14px 34px rgba(60, 33, 14, 0.08);
         }
 
         * {
@@ -38,6 +40,7 @@
                     transparent 28%
             ),
             linear-gradient(180deg, #f8f2eb 0%, var(--bg) 55%, #efe6da 100%);
+            min-height: 100vh;
         }
 
         a {
@@ -56,7 +59,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            padding: 10px 0 24px;
+            padding: 14px 0 28px;
         }
 
         .brand {
@@ -88,6 +91,21 @@
             font-size: 0.95rem;
         }
 
+        .nav a {
+            padding: 10px 14px;
+            border-radius: 999px;
+            transition:
+                color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .nav a:hover {
+            color: var(--accent-dark);
+            background: rgba(184, 92, 56, 0.08);
+            transform: translateY(-1px);
+        }
+
         .hero {
             display: grid;
             grid-template-columns: 1.3fr 0.9fr;
@@ -98,7 +116,8 @@
         .hero-copy,
         .hero-card,
         .section-card,
-        .newsletter {
+        .newsletter,
+        .panel {
             background: var(--surface);
             backdrop-filter: blur(10px);
             border: 1px solid var(--line);
@@ -144,6 +163,100 @@
             color: var(--muted);
         }
 
+        .page-intro {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            margin-top: 24px;
+            align-items: stretch;
+        }
+
+        .page-intro-copy,
+        .page-intro-aside {
+            padding: 32px;
+        }
+
+        .page-intro-copy h1 {
+            margin-bottom: 14px;
+            font-size: clamp(2.5rem, 5vw, 4.8rem);
+        }
+
+        .page-intro-aside {
+            display: grid;
+            align-content: space-between;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(93, 107, 82, 0.1),
+                    rgba(255, 251, 245, 0.92)
+                ),
+                var(--surface);
+        }
+
+        .page-intro-aside p {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .info-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .info-item {
+            padding: 16px 18px;
+            border-radius: 20px;
+            background: var(--surface-soft);
+            border: 1px solid rgba(73, 53, 39, 0.08);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .info-item strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1.02rem;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2,
+        .section-heading p {
+            margin-bottom: 0;
+        }
+
+        .panel {
+            padding: 30px;
+        }
+
+        .panel-muted {
+            background: var(--surface-soft);
+            border: 1px solid rgba(73, 53, 39, 0.08);
+            border-radius: 22px;
+            box-shadow: none;
+        }
+
+        .grid-two,
+        .grid-three {
+            display: grid;
+            gap: 18px;
+        }
+
+        .grid-two {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .grid-three {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
         .hero-actions {
             display: flex;
             gap: 14px;
@@ -175,8 +288,56 @@
             color: var(--ink);
         }
 
+        .button.ghost {
+            background: rgba(255, 250, 242, 0.84);
+            border: 1px solid var(--line);
+            color: var(--ink);
+        }
+
         .button:hover {
             transform: translateY(-2px);
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 130px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-size: 0.92rem;
+            border: 1px solid var(--line);
+            background: rgba(255, 250, 242, 0.8);
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                color 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .action-button.primary {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fffaf2;
+        }
+
+        .action-button.delete {
+            background: rgba(143, 63, 34, 0.12);
+            border-color: rgba(143, 63, 34, 0.2);
+            color: var(--accent-dark);
+        }
+
+        .empty-state {
+            padding: 28px;
+            border-radius: 22px;
+            background: var(--surface-soft);
+            border: 1px dashed rgba(73, 53, 39, 0.2);
+            color: var(--muted);
+            text-align: center;
         }
 
         .mini-stats {
@@ -407,8 +568,18 @@
             color: var(--muted);
         }
 
+        .footer-links a {
+            width: fit-content;
+            padding-bottom: 2px;
+            border-bottom: 1px solid transparent;
+            transition:
+                color 0.2s ease,
+                border-color 0.2s ease;
+        }
+
         .footer-links a:hover {
             color: var(--accent-dark);
+            border-color: rgba(143, 63, 34, 0.3);
         }
 
         .footer-meta {
@@ -419,6 +590,7 @@
 
         @media (max-width: 960px) {
             .hero,
+            .page-intro,
             .section-grid,
             .newsletter,
             .site-footer {
@@ -434,7 +606,9 @@
             }
 
             .shelf-grid,
-            .mini-stats {
+            .mini-stats,
+            .grid-two,
+            .grid-three {
                 grid-template-columns: 1fr;
             }
         }

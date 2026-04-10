@@ -1,22 +1,6 @@
-{% extends 'layouts/base.html' %} {% load static %} {% block content %}
+{% extends 'layouts/base.html' %}
+{% block content %}
     <style>
-        .section-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .catalog-card,
-        .catalog-note {
-            background: var(--surface);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--line);
-            border-radius: 28px;
-            box-shadow: var(--shadow);
-        }
-
         .catalog-grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -24,37 +8,40 @@
             margin-top: 24px;
         }
 
-        .catalog-card-link {
+        .catalog-card-shell {
             display: block;
         }
 
         .catalog-card {
             overflow: hidden;
-            height: 100%;
-            transition: transform 0.2s ease,
-            box-shadow 0.2s ease;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
         }
 
-        .catalog-card-link:hover .catalog-card {
+        .catalog-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 28px 64px rgba(60, 33, 14, 0.16);
         }
 
-        .catalog-card-shell {
-            display: grid;
-            gap: 14px;
+        .catalog-card-link {
+            display: block;
         }
 
         .catalog-cover {
             position: relative;
-            min-height: 220px;
+            min-height: 240px;
             background: linear-gradient(160deg, #cf7c52, #7d3f2c);
         }
 
         .catalog-cover img {
             width: 100%;
             height: 100%;
-            min-height: 220px;
+            min-height: 240px;
             display: block;
             object-fit: cover;
         }
@@ -63,11 +50,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: linear-gradient(
-                    180deg,
-                    rgba(20, 15, 12, 0.04),
-                    rgba(20, 15, 12, 0.24)
-            );
+            background: linear-gradient(180deg, rgba(20, 15, 12, 0.05), rgba(20, 15, 12, 0.34));
         }
 
         .catalog-cover-title {
@@ -82,14 +65,27 @@
             letter-spacing: -0.03em;
         }
 
+        .catalog-cover-fallback {
+            min-height: 240px;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            color: #fff8f2;
+        }
+
         .catalog-body {
             padding: 22px;
         }
 
-        .catalog-body p,
-        .catalog-note p {
+        .catalog-body p {
             color: var(--muted);
             line-height: 1.7;
+        }
+
+        .catalog-brief {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .catalog-meta {
@@ -103,44 +99,10 @@
             font-size: 0.94rem;
         }
 
-        .catalog-note {
-            margin-top: 24px;
-            padding: 24px 28px;
-        }
-
         .catalog-actions {
             display: flex;
             gap: 10px;
-            padding: 0 6px 6px;
-        }
-
-        .action-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 18px;
-            border-radius: 999px;
-            font-size: 0.92rem;
-            border: 1px solid var(--line);
-            background: rgba(255, 250, 242, 0.8);
-            transition: transform 0.2s ease,
-            background 0.2s ease,
-            color 0.2s ease;
-        }
-
-        .action-button:hover {
-            transform: translateY(-2px);
-        }
-
-        .action-button.add,
-        .action-button.edit {
-            color: var(--ink);
-        }
-
-        .action-button.delete {
-            background: rgba(143, 63, 34, 0.12);
-            border-color: rgba(143, 63, 34, 0.2);
-            color: var(--accent-dark);
+            margin-top: 18px;
         }
 
         @media (max-width: 960px) {
@@ -150,49 +112,77 @@
         }
     </style>
 
-    <section class="section-card" id="books-grid" style="margin-top: 24px">
-        <div class="section-toolbar">
+    <section class="page-intro">
+        <div class="page-intro-copy panel">
+            <span class="eyebrow">Books</span>
+            <h1>A catalog designed to keep every title readable at a glance.</h1>
+            <p class="lead">
+                Browse the collection, open a detail page, or jump straight into editing from the same visual system.
+            </p>
+        </div>
+        <aside class="page-intro-aside panel">
+            <div>
+                <span class="label">Collection View</span>
+                <h2>Books, authors, and actions stay in one consistent flow.</h2>
+            </div>
+            <div class="info-list">
+                <div class="info-item">
+                    <strong>{{ books|length }} books</strong>
+                    Current titles available in the catalog.
+                </div>
+                <div class="info-item">
+                    <strong>Fast navigation</strong>
+                    Open details, edit records, or remove entries directly from the grid.
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <section class="panel" id="books-grid" style="margin-top: 24px;">
+        <div class="section-heading">
             <div>
                 <span class="label">Featured Titles</span>
-                <h2>Books ready to open into a detail page</h2>
+                <h2>Browse the current book collection</h2>
             </div>
-            <a class="action-button add" href="{% url 'books:create' %}">Add Book</a>
+            <a class="action-button primary" href="{% url 'books:create' %}">Add Book</a>
         </div>
 
         <div class="catalog-grid">
             {% for book in books %}
                 <article class="catalog-card-shell">
-                    <a class="catalog-card-link" href="{% url 'books:show' book.id %}">
-                        <div class="catalog-card">
+                    <div class="catalog-card">
+                        <a class="catalog-card-link" href="{% url 'books:show' book.id %}">
                             <div class="catalog-cover">
                                 {% if book.image %}
-                                    <img
-                                            src="{{ book.image.url }}"
-                                            alt="{{ book.title }} cover"
-                                    />
+                                    <img src="{{ book.image.url }}" alt="{{ book.title }} cover">
                                 {% else %}
-                                    <p style="padding: 20px; color: white; text-align: center;">No Cover Available</p>
+                                    <div class="catalog-cover-fallback">No cover uploaded</div>
                                 {% endif %}
                                 <div class="catalog-cover-title">{{ book.title }}</div>
                             </div>
-                            <div class="catalog-body">
-                                <span class="label">Book Title</span>
+                        </a>
+                        <div class="catalog-body">
+                            <a class="catalog-card-link" href="{% url 'books:show' book.id %}">
+                                <span class="label">Book</span>
                                 <h3>{{ book.title }}</h3>
-                                <p>{{ book.brief }}</p>
+                                <p class="catalog-brief">{{ book.brief }}</p>
                                 <div class="catalog-meta">
                                     <span>{{ book.no_of_page }} pages</span>
                                     <strong>${{ book.price }}</strong>
                                 </div>
+                            </a>
+                            <div class="catalog-actions">
+                                <a class="action-button" href="{% url 'books:edit' book.id %}">Edit</a>
+                                <a class="action-button delete" href="{% url 'books:delete' book.id %}">Delete</a>
                             </div>
                         </div>
-                    </a>
-                    <div class="catalog-actions">
-                        <a class="action-button edit" href="{% url 'books:edit' book.id %}">Edit</a>
-                        <a class="action-button delete" href="{% url 'books:delete' book.id %}">Delete</a>
                     </div>
                 </article>
+            {% empty %}
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    No books added yet.
+                </div>
             {% endfor %}
         </div>
     </section>
-
 {% endblock %}

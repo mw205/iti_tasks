@@ -1,15 +1,33 @@
+import re
+
 from django import forms
 
+from authors.models import Author
+from books.models import Book
 
-class AuthorsForm(forms.Form):
-    name = forms.CharField(label="Name", max_length=255)
-    bio = forms.CharField(label="Bio", widget=forms.Textarea(attrs={'rows': 4}))
-    featured_title = forms.CharField(label="Featured Title", max_length=255)
-    label = forms.CharField(label="Label", max_length=255)
+
+class AuthorsModelForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = '__all__'
+
+    books = forms.ModelMultipleChoiceField(
+        queryset=Book.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields["books"].initial = self.instance.books.all()
 
     # validation rules
     def clean_name(self):
+
         name = self.cleaned_data["name"]
+        if not bool(re.fullmatch("^[A-Za-z]{2,25}( [A-Za-z]{2,25})?$", name)):
+            raise forms.ValidationError("Invalid name")
         if len(name) > 255:
             raise forms.ValidationError("Name must be less than 255 characters")
         if len(name) < 3:

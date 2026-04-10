@@ -1,41 +1,41 @@
-{% extends "layouts/base.html" %}
+{% extends 'layouts/base.html' %}
 
 {% block content %}
     <style>
-        .form-container {
-            max-width: 650px;
-            margin: 40px auto;
-            padding: 40px;
+        .form-shell {
+            max-width: 760px;
+            margin: 24px auto 0;
+            padding: 36px;
             background: var(--surface);
-            backdrop-filter: blur(10px);
             border: 1px solid var(--line);
             border-radius: 28px;
             box-shadow: var(--shadow);
         }
 
         .form-header {
-            margin-bottom: 32px;
-            text-align: center;
+            margin-bottom: 28px;
         }
 
-        .form-header h2 {
-            font-size: 2.2rem;
-            margin: 12px 0 8px;
-            letter-spacing: -0.02em;
+        .form-header h1 {
+            font-size: clamp(2.2rem, 4vw, 3.6rem);
+            margin-bottom: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 22px;
         }
 
         .form-group {
-            margin-bottom: 24px;
+            display: grid;
+            gap: 8px;
         }
 
         .form-group label {
-            display: block;
             font-size: 0.8rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--accent-dark);
-            margin-bottom: 8px;
-            font-weight: 600;
         }
 
         .form-group input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
@@ -43,244 +43,166 @@
         .form-group select {
             width: 100%;
             padding: 14px 18px;
-            border-radius: 14px;
+            border-radius: 18px;
             border: 1px solid var(--line);
             background: var(--surface-strong);
-            font-family: inherit;
-            font-size: 1rem;
+            font: inherit;
             color: var(--ink);
-            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px var(--accent-soft);
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
         }
 
-        .file-upload-wrapper {
+        .upload-box {
             position: relative;
-            width: 100%;
-            min-height: 200px;
+            min-height: 220px;
             border: 2px dashed var(--line);
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+            border-radius: 22px;
             background: var(--surface-strong);
-            cursor: pointer;
             overflow: hidden;
         }
 
-        .file-upload-wrapper:hover {
-            border-color: var(--accent);
-            background: rgba(184, 92, 56, 0.05);
-        }
-
-        .file-upload-wrapper input[type="file"] {
+        .upload-box input[type="file"] {
             position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             opacity: 0;
             cursor: pointer;
-            z-index: 10;
+            z-index: 2;
+        }
+
+        .upload-prompt,
+        .upload-preview {
+            min-height: 220px;
+            display: grid;
+            place-items: center;
+            padding: 24px;
         }
 
         .upload-prompt {
             text-align: center;
-            padding: 20px;
-            transition: opacity 0.3s;
-        }
-
-        .upload-prompt i {
-            display: block;
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-            color: var(--accent);
-        }
-
-        .upload-prompt span {
-            display: block;
             color: var(--muted);
-            font-size: 0.9rem;
+            opacity: {% if book.image %}0{% else %}1{% endif %};
         }
 
-        .upload-prompt strong {
-            color: var(--ink);
-            text-decoration: underline;
-        }
-
-        .preview-container {
+        .upload-preview {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--surface-strong);
-            z-index: 5;
-            display: {% if book.image %}block{% else %}none{% endif %};
+            inset: 0;
+            z-index: 1;
+            padding: 0;
+            display: {% if book.image %}grid{% else %}none{% endif %};
         }
 
-        .preview-container img {
+        .upload-preview img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
-        .preview-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
+        .form-actions {
             display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 20px;
-            opacity: 0;
-            transition: opacity 0.3s;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 30px;
         }
 
-        .file-upload-wrapper:hover .preview-overlay {
-            opacity: 1;
+        .help-text,
+        .errorlist {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
         }
 
-        .change-btn {
-            background: white;
-            padding: 8px 16px;
-            border-radius: 999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--ink);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .actions {
-            display: flex;
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .btn {
-            flex: 1;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 14px 22px;
-            border-radius: 999px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: none;
-            text-decoration: none;
-            font-family: inherit;
-        }
-
-        .btn-save {
-            background: var(--ink);
-            color: #fffaf2;
-            box-shadow: 0 14px 30px rgba(31, 27, 24, 0.18);
-        }
-
-        .btn-cancel {
-            background: transparent;
-            border: 1px solid var(--line);
-            color: var(--ink);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
+        .errorlist {
+            color: #b83838;
         }
 
         @media (max-width: 640px) {
-            .form-container {
+            .form-shell {
                 padding: 24px;
-                margin: 20px auto;
             }
 
-            .actions {
+            .form-actions {
                 flex-direction: column;
             }
         }
     </style>
 
-    <div class="form-container">
+    <section class="form-shell">
         <div class="form-header">
-            <span class="eyebrow">Edition</span>
-            <h2>Refine the Story</h2>
-            <p class="lead">Update the details for <strong>{{ book.title }}</strong>.</p>
+            <span class="eyebrow">Books</span>
+            <h1>Edit {{ book.title }}</h1>
+            <p class="lead">Update the catalog information and cover image for this title.</p>
         </div>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" class="form-grid">
             {% csrf_token %}
-
             {% for field in form %}
                 <div class="form-group">
                     {{ field.label_tag }}
-
                     {% if field.name == 'image' %}
-                        <div class="file-upload-wrapper" id="drop-zone">
-                            <div class="upload-prompt" id="upload-prompt"
-                                 style="opacity: {% if book.image %}0{% else %}1{% endif %};">
-                                <i>🖼️</i>
-                                <span><strong>Click to upload</strong> or drag and drop book cover</span>
-                                <span style="font-size: 0.75rem; margin-top: 4px;">PNG, JPG, WEBP (max. 5MB)</span>
-                            </div>
-
-                            <div class="preview-container" id="preview-container">
-                                <img id="image-preview" src="{% if book.image %}{{ book.image.url }}{% endif %}"
-                                     alt="Preview">
-                                <div class="preview-overlay">
-                                    <span class="change-btn">Change Cover</span>
+                        <div class="upload-box">
+                            <div class="upload-prompt" id="upload-prompt">
+                                <div>
+                                    <strong>Upload book cover</strong>
+                                    <p class="help-text">Choose a new cover image to replace the current one.</p>
                                 </div>
                             </div>
-
+                            <div class="upload-preview" id="upload-preview">
+                                <img id="upload-image" src="{% if book.image %}{{ book.image.url }}{% endif %}" alt="Book cover preview">
+                            </div>
                             {{ field }}
                         </div>
                     {% else %}
                         {{ field }}
                     {% endif %}
-
                     {% if field.errors %}
-                        <div class="errorlist">{{ field.errors }}</div>
+                        {{ field.errors }}
+                    {% endif %}
+                    {% if field.help_text %}
+                        <small class="help-text">{{ field.help_text }}</small>
                     {% endif %}
                 </div>
             {% endfor %}
 
-            <div class="actions">
-                <button class="btn btn-save" type="submit">Save Changes</button>
-                <a class="btn btn-cancel" href="{% url 'books:show' book.id %}">
-                    Cancel
-                </a>
+            <div class="form-actions">
+                <button class="action-button primary" type="submit">Save Changes</button>
+                <a class="action-button" href="{% url 'books:show' book.id %}">Cancel</a>
             </div>
         </form>
-    </div>
+    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const fileInput = document.querySelector('input[type="file"]');
-            const previewContainer = document.getElementById('preview-container');
-            const previewImage = document.getElementById('image-preview');
-            const uploadPrompt = document.getElementById('upload-prompt');
-            const dropZone = document.getElementById('drop-zone');
+            const preview = document.getElementById('upload-preview');
+            const image = document.getElementById('upload-image');
+            const prompt = document.getElementById('upload-prompt');
 
-            if (fileInput) {
-                fileInput.addEventListener('change', function () {
-                    const file = this.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function (e) {
-                            previewImage.src = e.target.result;
-                            previewContainer.style.display = 'block';
-                            uploadPrompt.style.opacity = '0';
-                        }
-                        reader.readAsDataURL(file);
-                    }
-                });
+            if (!fileInput) {
+                return;
             }
+
+            fileInput.addEventListener('change', function () {
+                const file = this.files[0];
+                if (!file) {
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    image.src = event.target.result;
+                    preview.style.display = 'grid';
+                    prompt.style.opacity = '0';
+                };
+                reader.readAsDataURL(file);
+            });
         });
     </script>
 {% endblock %}

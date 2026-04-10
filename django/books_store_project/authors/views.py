@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, redirect, reverse
+from django.views import View
 
-from authors.forms import AuthorsForm
+from authors.forms import AuthorsModelForm
 from authors.models import Author
 
 
@@ -11,44 +12,39 @@ def index(request):
 
 
 def delete(request, id):
-    author = get_object_or_404(Author, pk=id)
-    author.delete()
+    Author.get_author_by_id(id).delete()
+
     return redirect(reverse("authors:index"))
 
 
-def create(request):
-    form = AuthorsForm()
-    if request.method == "POST":
-        form = AuthorsForm(request.POST)
-        if form.is_valid():
-            author = Author()
-            author.name = form.cleaned_data["name"]
-            author.bio = form.cleaned_data["bio"]
-            author.featured_title = form.cleaned_data["featured_title"]
-            author.label = form.cleaned_data["label"]
-            author.save()
-            return redirect("authors:index")
-    return render(request, 'authors/create.html', {"form": form})
+def show(request, id):
+    author = Author.get_author_by_id(id)
+    return render(request, "authors/show.html", context={"author": author})
 
 
-def edit(request, id):
-    author = get_object_or_404(Author, pk=id)
-    if request.method == "POST":
-        form = AuthorsForm(request.POST)
+class CreateAuthorView(View):
+    def get(self, request):
+        form = AuthorsModelForm()
+        return render(request, 'authors/create.html', {"form": form})
+
+    def post(self, request):
+        form = AuthorsModelForm(request.POST, request.FILES)
         if form.is_valid():
-            author.name = form.cleaned_data["name"]
-            author.bio = form.cleaned_data["bio"]
-            author.featured_title = form.cleaned_data["featured_title"]
-            author.label = form.cleaned_data["label"]
-            author.save()
-            return redirect(reverse("authors:index"))
-    else:
-        form = AuthorsForm(
-            initial={
-                "name": author.name,
-                "bio": author.bio,
-                "featured_title": author.featured_title,
-                "label": author.label
-            }
-        )
-    return render(request, 'authors/edit.html', context={"form": form, "author": author})
+            author = form.save()
+            return redirect(author.show_url)
+        return render(request, 'authors/create.html', {"form": form})
+
+
+class UpdateAuthorView(View):
+    def get(self, request, id):
+        author = Author.get_author_by_id(id)
+        form = AuthorsModelForm(instance=author)
+        return render(request, 'authors/edit.html', context={"form": form, "author": author})
+
+    def post(self, request, id):
+        author = Author.get_author_by_id(id)
+        form = AuthorsModelForm(request.POST, request.FILES, instance=author)
+        if form.is_valid():
+            form.save()
+            return redirect(author.show_url)
+        return render(request, 'authors/edit.html', context={"form": form, "author": author})

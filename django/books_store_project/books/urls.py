@@ -1,14 +1,13 @@
 from django.urls import path
 
-from books.views import index, show, create, delete, edit
+from books.views import index, show, delete, CreateBookView, UpdateBookView
 
 app_name = "books"
 
 urlpatterns = [
-
     path('index/', index, name='index'),
     path('show/<int:id>', show, name='show'),
-    path('create/', create, name='create'),
+    path('create/', CreateBookView.as_view(), name='create'),
     path('delete/<int:id>', delete, name='delete'),
-    path('edit/<int:id>', edit, name='edit'),
+    path('edit/<int:id>', UpdateBookView.as_view(), name='edit'),
 ]

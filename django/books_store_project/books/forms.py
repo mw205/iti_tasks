@@ -1,19 +1,31 @@
 from django import forms
 
 from authors.models import Author
+from books.models import Book
 
 
-class BooksForm(forms.Form):
+class BooksForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = "__all__"
+
     title = forms.CharField(label="Title", max_length=255)
     brief = forms.CharField(label="Brief", widget=forms.Textarea(attrs={'rows': 4}))
     image = forms.ImageField(label="Book Cover", required=False)
     no_of_page = forms.IntegerField(label="Number of pages")
     price = forms.FloatField(label="Price")
-    author = forms.ModelChoiceField(
-        label="Author",
+
+    author = forms.ModelMultipleChoiceField(
         queryset=Author.objects.all(),
-        empty_label="Select Author"
+        widget=forms.CheckboxSelectMultiple(),
+        required=True
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            self.fields["author"].initial = self.instance.author.all()
+            self.fields["image"].required = False
 
     def clean_title(self):
         title = self.cleaned_data["title"]
@@ -36,8 +48,6 @@ class BooksForm(forms.Form):
         if image:
             if image.size > 2 * 1024 * 1024:
                 raise forms.ValidationError("Image file too large ( > 2MB )")
-            if not image.content_type.startswith("image"):
-                raise forms.ValidationError("File type is not image")
         return image
 
     def clean_price(self):
@@ -52,10 +62,11 @@ class BooksForm(forms.Form):
             raise forms.ValidationError("Number of pages must be greater than 0")
         return no_of_page
 
-    def clean_author(self):
-        author = self.cleaned_data["author"]
-        if not author:
-            raise forms.ValidationError("Author is required")
-        if not Author.objects.filter(author).exists():
-            raise forms.ValidationError("Author does not exist")
-        return author
+    def save(self, commit=True):
+        book = super().save(commit=commit)
+        if commit:
+            book.author.clear()
+            authors = self.cleaned_data['author']
+            for author in authors:
+                author.books.add(book)
+        return book

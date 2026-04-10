@@ -1,12 +1,9 @@
 {% extends 'layouts/base.html' %}
-{% load static %}
 {% block content %}
     <style>
         .detail-layout,
-        .detail-summary,
-        .detail-notes {
+        .detail-block {
             background: var(--surface);
-            backdrop-filter: blur(10px);
             border: 1px solid var(--line);
             border-radius: 28px;
             box-shadow: var(--shadow);
@@ -14,14 +11,14 @@
 
         .detail-layout {
             display: grid;
-            grid-template-columns: 0.85fr 1.15fr;
+            grid-template-columns: 0.9fr 1.1fr;
             gap: 28px;
             padding: 32px;
             margin-top: 24px;
         }
 
         .detail-cover {
-            min-height: 460px;
+            min-height: 500px;
             overflow: hidden;
             border-radius: 24px;
             background: linear-gradient(160deg, #cf7c52, #7d3f2c);
@@ -30,14 +27,21 @@
         .detail-cover img {
             width: 100%;
             height: 100%;
-            min-height: 460px;
-            display: block;
+            min-height: 500px;
             object-fit: cover;
+            display: block;
+        }
+
+        .detail-cover-fallback {
+            min-height: 500px;
+            display: grid;
+            place-items: center;
+            color: #fff8f2;
+            padding: 32px;
         }
 
         .detail-copy p,
-        .detail-summary p,
-        .detail-notes p {
+        .detail-block p {
             color: var(--muted);
             line-height: 1.75;
         }
@@ -58,19 +62,114 @@
 
         .detail-fact strong {
             display: block;
-            margin-bottom: 8px;
-            font-size: 1.2rem;
+            margin-top: 8px;
+            font-size: 1.12rem;
         }
 
-        .detail-summary,
-        .detail-notes {
+        .detail-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .detail-block {
             margin-top: 24px;
             padding: 28px;
         }
 
+        .authors-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .author-card-shell {
+            display: block;
+        }
+
+        .author-card {
+            overflow: hidden;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease,
+            box-shadow 0.2s ease;
+        }
+
+        .author-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 64px rgba(60, 33, 14, 0.16);
+        }
+
+        .author-portrait {
+            min-height: 260px;
+            display: grid;
+            place-items: end start;
+            padding: 22px;
+            color: #fff8f2;
+            background: linear-gradient(160deg, #cf7c52, #7d3f2c);
+            font-size: 1.5rem;
+            letter-spacing: -0.03em;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .author-portrait img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .author-portrait::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(20, 15, 12, 0.05), rgba(20, 15, 12, 0.42));
+        }
+
+        .author-portrait span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .author-body {
+            padding: 22px;
+        }
+
+        .author-body p,
+        .author-meta {
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .author-bio {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .author-meta {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(73, 53, 39, 0.08);
+        }
+
+        .author-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
         @media (max-width: 960px) {
             .detail-layout,
-            .detail-facts {
+            .detail-facts,
+            .authors-list {
                 grid-template-columns: 1fr;
             }
         }
@@ -81,13 +180,13 @@
             {% if book.image %}
                 <img src="{{ book.image.url }}" alt="{{ book.title }} cover">
             {% else %}
-                <div style="padding: 100px; text-align: center; color: var(--muted);">No Cover Uploaded</div>
+                <div class="detail-cover-fallback">No cover uploaded</div>
             {% endif %}
         </div>
 
         <div class="detail-copy">
+            <span class="eyebrow">Book Detail</span>
             <h1>{{ book.title }}</h1>
-
             <p>{{ book.brief }}</p>
 
             <div class="detail-facts">
@@ -100,16 +199,50 @@
                     <strong>{{ book.no_of_page }}</strong>
                 </div>
             </div>
-            <div class="detail-fact" style="margin-top: 8px">
-                <span class="label">Author</span>
-                <strong>{{ book.author }}</strong>
-            </div>
 
-            <div class="actions" style="margin-top: 32px; display: flex; gap: 16px;">
-                <a class="btn btn-save" href="{% url 'books:edit' book.id %}" style="background: var(--ink); color: #fffaf2; text-decoration: none; padding: 14px 22px; border-radius: 999px; flex: 1; text-align: center;">Edit Book</a>
-                <a class="btn btn-cancel" href="{% url 'books:delete' book.id %}" style="background: rgba(143, 63, 34, 0.12); border: 1px solid rgba(143, 63, 34, 0.2); color: var(--accent-dark); text-decoration: none; padding: 14px 22px; border-radius: 999px; flex: 1; text-align: center;">Delete Book</a>
+            <div class="detail-actions">
+                <a class="action-button primary" href="{% url 'books:edit' book.id %}">Edit Book</a>
+                <a class="action-button delete" href="{% url 'books:delete' book.id %}">Delete Book</a>
             </div>
         </div>
     </section>
 
+    <section class="detail-block">
+        <div class="section-heading">
+            <div>
+                <span class="label">Written By</span>
+                <h2>Authors connected to this book</h2>
+            </div>
+        </div>
+
+        <div class="authors-list">
+            {% for author in authors %}
+                <article class="author-card-shell">
+                    <div class="author-card">
+                        <a href="{{ author.show_url }}">
+                            <div class="author-portrait">
+                                {% if author.image %}
+                                    <img src="{{ author.image.url }}" alt="{{ author.name }}">
+                                {% endif %}
+                                <span>{{ author.name }}</span>
+                            </div>
+                        </a>
+                        <div class="author-body">
+                            <a href="{{ author.show_url }}">
+                                <span class="label">{{ author.get_gender_display }}</span>
+                                <h3>{{ author.name }}</h3>
+                                <p class="author-bio">{{ author.bio }}</p>
+                                <div class="author-meta">
+                                    {{ author.email|default:"No email provided" }}
+                                </div>
+                            </a>
+
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="empty-state">No authors linked to this book yet.</div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

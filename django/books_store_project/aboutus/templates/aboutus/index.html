@@ -1,113 +1,76 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-<style>
-    .about-hero,
-    .about-story,
-    .about-values,
-    .about-note,
-    .value-card {
-        background: var(--surface);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--line);
-        border-radius: 28px;
-        box-shadow: var(--shadow);
-    }
+    <section class="page-intro">
+        <div class="page-intro-copy panel">
+            <span class="eyebrow">About Us</span>
+            <h1>Built for readers who want clarity, calm, and well-chosen books.</h1>
+            <p class="lead">
+                Book Atelier pairs a warm storefront with a simple catalog, author pages,
+                and direct contact paths so browsing feels intentional from start to finish.
+            </p>
+        </div>
+        <aside class="page-intro-aside panel">
+            <div>
+                <span class="label">At A Glance</span>
+                <h2>A small shop with a focused reading experience.</h2>
+            </div>
+            <div class="info-list">
+                <div class="info-item">
+                    <strong>Curated shelves</strong>
+                    Each title and author page is presented with room to read, not rush.
+                </div>
+                <div class="info-item">
+                    <strong>Reader-first layout</strong>
+                    Navigation, forms, and detail pages stay consistent across the site.
+                </div>
+            </div>
+        </aside>
+    </section>
 
-    .about-hero {
-        display: grid;
-        grid-template-columns: 1.15fr 0.85fr;
-        gap: 24px;
-        padding: 32px;
-        margin-top: 24px;
-    }
+    <section class="panel" style="margin-top: 24px;">
+        <div class="section-heading">
+            <div>
+                <span class="label">Our Story</span>
+                <h2>Book discovery should feel welcoming and deliberate.</h2>
+            </div>
+        </div>
+        <div class="grid-two">
+            <div class="panel panel-muted">
+                <p>
+                    The shop is designed around clear catalog pages, readable book details,
+                    and author profiles that keep useful information close to the surface.
+                </p>
+            </div>
+            <div class="panel panel-muted">
+                <p>
+                    That same tone carries through the editing screens and support pages,
+                    so the whole project feels like one system rather than disconnected screens.
+                </p>
+            </div>
+        </div>
+    </section>
 
-    .about-copy p,
-    .about-story p,
-    .about-note p,
-    .value-card p {
-        color: var(--muted);
-        line-height: 1.75;
-    }
-
-    .about-copy h1 {
-        font-size: clamp(2.5rem, 5vw, 4.6rem);
-        margin-bottom: 16px;
-    }
-
-    .about-highlight {
-        padding: 24px;
-        background:
-            linear-gradient(180deg, rgba(93, 107, 82, 0.1), rgba(255, 251, 245, 0.88)),
-            var(--surface);
-        border-radius: 24px;
-    }
-
-    .about-story,
-    .about-note {
-        margin-top: 24px;
-        padding: 30px;
-    }
-
-    .about-values {
-        margin-top: 24px;
-        padding: 30px;
-    }
-
-    .values-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
-        margin-top: 22px;
-    }
-
-    .value-card {
-        padding: 22px;
-        background: var(--surface-strong);
-        box-shadow: none;
-    }
-
-    @media (max-width: 960px) {
-        .about-hero,
-        .values-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
-
-
-<section class="about-story">
-    <span class="label">Our Story</span>
-    <h2>Built around deliberate reading and well-made shelves</h2>
-    <p>
-        Book Atelier began as a simple idea: online bookstores do not need to feel rushed or mechanical.
-        This section is the long-form brand narrative area where you can later describe the project,
-        mission, and personality in more depth.
-    </p>
-    <p>
-        For now, the content stays hardcoded and presentational so the page can be reviewed visually
-        before any real text or CMS-style data is introduced.
-    </p>
-</section>
-
-<section class="about-values">
-    <span class="label">What Matters</span>
-    <h2>Three values that shape the shop</h2>
-    <div class="values-grid">
-        <article class="value-card">
-            <h3>Curated Selection</h3>
-            <p>Every shelf should feel edited, coherent, and worthy of attention.</p>
-        </article>
-        <article class="value-card">
-            <h3>Calm Experience</h3>
-            <p>The design favors clarity, atmosphere, and deliberate browsing over noise.</p>
-        </article>
-        <article class="value-card">
-            <h3>Reader Trust</h3>
-            <p>Descriptions, recommendations, and details should feel useful rather than promotional.</p>
-        </article>
-    </div>
-</section>
-
-
+    <section class="panel" style="margin-top: 24px;">
+        <div class="section-heading">
+            <div>
+                <span class="label">What Matters</span>
+                <h2>The principles guiding the experience</h2>
+            </div>
+        </div>
+        <div class="grid-three">
+            <article class="panel panel-muted">
+                <h3>Consistency</h3>
+                <p>Shared spacing, cards, and actions make every page easier to use.</p>
+            </article>
+            <article class="panel panel-muted">
+                <h3>Readability</h3>
+                <p>Book and author information is arranged to be scanned quickly and comfortably.</p>
+            </article>
+            <article class="panel panel-muted">
+                <h3>Warmth</h3>
+                <p>The interface stays polished without losing the quiet bookstore atmosphere.</p>
+            </article>
+        </div>
+    </section>
 {% endblock %}
