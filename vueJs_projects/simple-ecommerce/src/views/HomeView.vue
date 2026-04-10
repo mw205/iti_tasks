@@ -1,40 +1,66 @@
 <script setup>
+import { onMounted } from "vue";
 import CarouselBanner from "@/components/CarouselBanner.vue";
 import ProductCard from "@/components/ProductCard.vue";
 import { useProductStore } from "@/stores/productStore.js";
-import { onMounted, onUnmounted } from "vue";
 
 const productStore = useProductStore();
+
 onMounted(async () => {
   await productStore.fetchProducts();
-  console.log(
-    "HomeView mounted —",
-    productStore.products.length,
-    "products loaded",
-  );
-});
-onUnmounted(() => {
-  console.log("HomeView unmounted");
 });
 </script>
+
 <template>
-  <div class="hero-overlay bg-base-200 min-h-48 py-48 px-24">
+  <section class="space-y-10 pb-8">
     <CarouselBanner />
-  </div>
-  <div
-    v-if="productStore.loading"
-    class="flex justify-center items-center my-20"
-  >
-    <span class="loading loading-spinner loading-lg text-primary"></span>
-  </div>
-  <div v-else-if="productStore.error">
-    <span> Error happened </span>
-  </div>
-  <h2 v-else class="text-2xl md:text-4xl primary font-bold text-center my-10">
-    Our Products
-  </h2>
-  <div class="grid md:grid-cols-2 xl:grid-cols-3 justify-items-center gap-y-2">
-    <ProductCard v-for="product in productStore.products" :product="product" />
-  </div>
+
+    <section class="glass-panel rounded-4xl px-6 py-8 sm:px-8">
+      <div
+        class="mb-8 flex flex-col gap-4 border-b border-slate-200/70 pb-6 lg:flex-row lg:items-end lg:justify-between"
+      >
+        <div class="max-w-2xl">
+          <p class="mb-3 text-sm font-bold uppercase tracking-[0.3em] text-teal-700">
+            New season drop
+          </p>
+          <h2 class="section-title">Clean design, strong comfort, daily-ready pairs.</h2>
+          <p class="section-copy mt-3">
+            A refined selection of sneakers built for movement, training, and
+            all-day wear. Explore standout silhouettes without the clutter.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <div class="badge-soft">Premium cushioning</div>
+          <div class="badge-soft">Limited offers</div>
+          <div class="badge-soft">Fast local delivery</div>
+        </div>
+      </div>
+
+      <div
+        v-if="productStore.loading"
+        class="flex min-h-72 items-center justify-center"
+      >
+        <span class="loading loading-spinner loading-lg text-teal-700"></span>
+      </div>
+
+      <div
+        v-else-if="productStore.error"
+        class="rounded-3xl border border-red-200 bg-red-50 px-6 py-10 text-center text-red-700"
+      >
+        We couldn’t load the products right now.
+      </div>
+
+      <div
+        v-else
+        class="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+      >
+        <ProductCard
+          v-for="product in productStore.products"
+          :key="product.id"
+          :product="product"
+        />
+      </div>
+    </section>
+  </section>
 </template>
-<style scoped></style>
