@@ -28,5 +28,5 @@ urlpatterns = [
                   path('aboutus/', include('aboutus.urls')),
                   path('contactus/', include('contactus.urls')),
                   path('authors/', include('authors.urls')),
-
+                  path('api-auth/', include("rest_framework.urls"))
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

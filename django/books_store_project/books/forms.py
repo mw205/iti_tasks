@@ -2,6 +2,7 @@ from django import forms
 
 from authors.models import Author
 from books.models import Book
+from custom_validators import custom_validators
 
 
 class BooksForm(forms.ModelForm):
@@ -29,38 +30,42 @@ class BooksForm(forms.ModelForm):
 
     def clean_title(self):
         title = self.cleaned_data["title"]
-        if len(title) > 255:
-            raise forms.ValidationError("Title must be less than 255 characters")
-        if len(title) < 3:
-            raise forms.ValidationError("Title must be more than 3 characters")
-        return title
+        return custom_validators.CustomValidators.name_validator(
+            name=title,
+            validator_class=forms.ValidationError,
+            label="Title",
+        )
 
     def clean_brief(self):
         brief = self.cleaned_data["brief"]
-        if len(brief) > 255:
-            raise forms.ValidationError("Brief must be less than 255 characters")
-        if len(brief) < 3:
-            raise forms.ValidationError("Brief must be more than 3 characters")
-        return brief
+        return custom_validators.CustomValidators.validate_length(
+            value=brief,
+            validator_class=forms.ValidationError,
+            label="Brief",
+        )
 
     def clean_image(self):
         image = self.cleaned_data["image"]
-        if image:
-            if image.size > 2 * 1024 * 1024:
-                raise forms.ValidationError("Image file too large ( > 2MB )")
-        return image
+        return custom_validators.CustomValidators.image_size_validator(
+            image=image,
+            validator_class=forms.ValidationError,
+        )
 
     def clean_price(self):
         price = self.cleaned_data["price"]
-        if price < 0:
-            raise forms.ValidationError("Price must be greater than 0")
-        return price
+        return custom_validators.CustomValidators.non_negative_validator(
+            value=price,
+            validator_class=forms.ValidationError,
+            label="Price",
+        )
 
     def clean_no_of_page(self):
         no_of_page = self.cleaned_data["no_of_page"]
-        if no_of_page < 0:
-            raise forms.ValidationError("Number of pages must be greater than 0")
-        return no_of_page
+        return custom_validators.CustomValidators.non_negative_validator(
+            value=no_of_page,
+            validator_class=forms.ValidationError,
+            label="Number of pages",
+        )
 
     def save(self, commit=True):
         book = super().save(commit=commit)

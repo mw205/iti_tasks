@@ -1,9 +1,8 @@
-import re
-
 from django import forms
 
 from authors.models import Author
 from books.models import Book
+from custom_validators import custom_validators
 
 
 class AuthorsModelForm(forms.ModelForm):
@@ -24,34 +23,33 @@ class AuthorsModelForm(forms.ModelForm):
 
     # validation rules
     def clean_name(self):
-
         name = self.cleaned_data["name"]
-        if not bool(re.fullmatch("^[A-Za-z]{2,25}( [A-Za-z]{2,25})?$", name)):
-            raise forms.ValidationError("Invalid name")
-        if len(name) > 255:
-            raise forms.ValidationError("Name must be less than 255 characters")
-        if len(name) < 3:
-            raise forms.ValidationError("Name must be more than 3 characters")
-        return name
+        return custom_validators.CustomValidators.name_validator(
+            name=name,
+            validator_class=forms.ValidationError,
+            label="Name",
+            validate_format=True,
+        )
 
     def clean_bio(self):
         bio = self.cleaned_data["bio"]
-        if len(bio) > 1000:
-            raise forms.ValidationError("Bio must be less than 1000 characters")
-        return bio
+        return custom_validators.CustomValidators.bio_validator(
+            bio=bio,
+            validator_class=forms.ValidationError,
+        )
 
     def clean_featured_title(self):
         featured_title = self.cleaned_data["featured_title"]
-        if len(featured_title) > 255:
-            raise forms.ValidationError("Featured Title must be less than 255 characters")
-        if len(featured_title) < 3:
-            raise forms.ValidationError("Featured Title must be more than 3 characters")
-        return featured_title
+        return custom_validators.CustomValidators.validate_length(
+            value=featured_title,
+            validator_class=forms.ValidationError,
+            label="Featured Title",
+        )
 
     def clean_label(self):
         label = self.cleaned_data["label"]
-        if len(label) > 255:
-            raise forms.ValidationError("Label must be less than 255 characters")
-        if len(label) < 3:
-            raise forms.ValidationError("Label must be more than 3 characters")
-        return label
+        return custom_validators.CustomValidators.validate_length(
+            value=label,
+            validator_class=forms.ValidationError,
+            label="Label",
+        )

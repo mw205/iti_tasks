@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'books',
     'aboutus',
     'contactus',
-    'authors'
+    'django_extensions',
+    'authors',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
