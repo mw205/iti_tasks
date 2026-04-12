@@ -32,10 +32,6 @@ const handleBuy = () => {
             class="rounded-full bg-red-600 px-4 py-2 text-sm font-extrabold uppercase tracking-[0.2em] text-white">
             Out of stock
           </span>
-          <span v-else-if="product.discount > 0"
-            class="rounded-full bg-amber-300 px-4 py-2 text-sm font-extrabold uppercase tracking-[0.2em] text-slate-900">
-            Save {{ product.discount }}%
-          </span>
           <span v-if="product.badge"
             class="rounded-full bg-sky-100 px-4 py-2 text-sm font-bold uppercase tracking-[0.2em] text-sky-800">
             {{ product.badge }}
@@ -71,19 +67,10 @@ const handleBuy = () => {
                 <p class="text-3xl font-extrabold tracking-[-0.05em] text-slate-950">
                   ${{ discountedPrice.toFixed(2) }}
                 </p>
-                <span v-if="product.discount > 0"
-                  class="rounded-full bg-amber-100 px-3 py-1 text-xs font-extrabold uppercase tracking-[0.18em] text-amber-800">
-                  Save {{ product.discount }}%
-                </span>
               </div>
-              <div v-if="product.discount > 0" class="flex items-center gap-2 text-sm text-slate-500">
-                <span class="font-semibold">Was</span>
+              <div v-if="product.discount > 0" class="text-sm text-slate-500">
                 <span class="font-bold line-through">
                   ${{ product.price.toFixed(2) }}
-                </span>
-                <span class="text-slate-300">•</span>
-                <span class="font-semibold text-emerald-700">
-                  You save ${(product.price - discountedPrice).toFixed(2)}
                 </span>
               </div>
               <p v-else class="text-sm font-semibold text-slate-500">

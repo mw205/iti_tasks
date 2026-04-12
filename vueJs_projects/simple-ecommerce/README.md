@@ -21,18 +21,23 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 
 ## Project Setup
 
+### 1. Install Dependencies
 ```sh
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+### 2. Run the Backend (JSON Server)
+This project uses `json-server` to mock a backend with `db.json`.
+```sh
+npx json-server db.json --port 3000
+```
 
+### 3. Run the Frontend
 ```sh
 pnpm dev
 ```
 
 ### Compile and Minify for Production
-
 ```sh
 pnpm build
 ```
