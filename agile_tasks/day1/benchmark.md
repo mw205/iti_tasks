@@ -1,0 +1,6 @@
+| Feature       | Jenkins                                             | Azure DevOps                                                   | AWS CodePipeline                                                 |
+|--------------|-----------------------------------------------------|----------------------------------------------------------------|------------------------------------------------------------------|
+| Business Fit | High-customization & legacy open-source projects.   | Enterprise-level "All-in-one" project management.             | Cloud-native teams deep in the AWS ecosystem.                    |
+| Pricing      | Free (Open Source), but carries high maintenance & hosting costs. | SaaS model; Free for up to 5 users, then monthly per-user fees. | Pay-per-use ($1/month per active pipeline) + storage costs.      |
+| Deployment   | Self-hosted; requires manual scaling and security patching. | Cloud-hosted (SaaS); managed entirely by Microsoft.            | Fully Managed (Serverless); scales automatically via AWS.         |
+| Dependencies | Heavily reliant on 3rd-party Plugins and Java environment. | Integrated with Azure Boards, Repos, and Test Plans.          | Depends on AWS IAM (Security) and S3 (Artifact storage).         |
