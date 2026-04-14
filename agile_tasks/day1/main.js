@@ -31,7 +31,7 @@ function isFilled(value, fieldName) {
 function isNameValid(name) {
   if (!name.match(NAME_PATTERN)) {
     return {
-      isValid: true,
+      isValid: false,
       error: "Name is invalid, it should contains characters only",
     };
   }
