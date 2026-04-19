@@ -45,3 +45,5 @@
 /java_projects/CountriesStats/build/
 /java_projects/CountriesStats/dist/
 /java_projects/bookstore/target/
+
+.idea/
