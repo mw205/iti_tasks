@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  app:
+    image: node:alpine
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 3000:3000
+    environment:
+      - MESSAGE=Hello from ITI
+      - PORT=3000
+    command: sh -c "if [ ! -d node_modules ]; then npm install; fi && npm run dev"

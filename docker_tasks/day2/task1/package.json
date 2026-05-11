@@ -1,0 +1,12 @@
+{
+  "name": "node-docker-task",
+  "version": "1.0.0",
+  "description": "Docker Compose development setup",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
