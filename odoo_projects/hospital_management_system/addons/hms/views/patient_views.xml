@@ -63,6 +63,18 @@
                             <field name="doctor_ids" widget="many2many_tags" readonly="not department_id"/>
                         </group>
                     </group>
+
+                    <notebook>
+                        <page string="Log History">
+                            <field name="history_ids" readonly="1">
+                                <list>
+                                    <field name="create_uid" string="Created By"/>
+                                    <field name="create_date" string="Date"/>
+                                    <field name="description" string="Description"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

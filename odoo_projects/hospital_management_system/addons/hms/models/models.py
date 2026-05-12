@@ -53,6 +53,9 @@ class HmsPatient(models.Model):
         string="State",
         default="undetermined",
     )
+    history_ids = fields.One2many(
+        "hms.patient.history.log", "patient_id", string="Log History"
+    )
 
     @api.depends("birth_date")
     def _compute_age(self):
@@ -99,6 +102,17 @@ class HmsPatient(models.Model):
                     )
                 )
 
+    def write(self, vals):
+        if "state" in vals:
+            for record in self:
+                self.env["hms.patient.history.log"].create(
+                    {
+                        "patient_id": record.id,
+                        "description": f"State changed to {vals['state']}",
+                    }
+                )
+        return super(HmsPatient, self).write(vals)
+
 
 class HMSDepartment(models.Model):
     _name = "hms.department"
@@ -126,3 +140,10 @@ class HMSDoctor(models.Model):
             rec.name = " ".join(
                 part for part in [rec.first_name, rec.last_name] if part
             )
+
+
+class HMSPatientHistoryLog(models.Model):
+    _name = "hms.patient.history.log"
+    _description = "HMS Patient History Log"
+    patient_id = fields.Many2one("hms.patient", string="Patient")
+    description = fields.Char(string="Description")
