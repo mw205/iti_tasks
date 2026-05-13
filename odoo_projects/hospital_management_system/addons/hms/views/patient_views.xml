@@ -10,6 +10,7 @@
             <list>
                 <field name="first_name"/>
                 <field name="last_name"/>
+                <field name="email" widget="email" />
                 <field name="age"/>
                 <field name="blood_type"/>
                 <field name="pcr"/>
@@ -39,6 +40,7 @@
                     </div>
                     <group>
                         <group string="Personal Details">
+                            <field name="email" widget="email" />
                             <field name="birth_date"/>
                             <field name="age"/>
                             <field name="blood_type"/>

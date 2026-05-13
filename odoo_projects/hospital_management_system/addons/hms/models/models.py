@@ -2,6 +2,8 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import date
 
+import re
+
 
 class HmsPatient(models.Model):
     _name = "hms.patient"
@@ -9,6 +11,8 @@ class HmsPatient(models.Model):
 
     first_name = fields.Char(string="First Name", required=True)
     last_name = fields.Char(string="Last Name", required=True)
+
+    name = fields.Char(string="Name", compute="_compute_name", store=True)
     birth_date = fields.Date(string="Birth Date")
     history = fields.Html(string="History")
     cr_ratio = fields.Float(string="CR Ratio")
@@ -56,6 +60,15 @@ class HmsPatient(models.Model):
     history_ids = fields.One2many(
         "hms.patient.history.log", "patient_id", string="Log History"
     )
+
+    email = fields.Char(string="Email")
+
+    @api.depends("first_name", "last_name")
+    def _compute_name(self):
+        for rec in self:
+            rec.name = " ".join(
+                part for part in [rec.first_name, rec.last_name] if part
+            )
 
     @api.depends("birth_date")
     def _compute_age(self):
@@ -112,6 +125,19 @@ class HmsPatient(models.Model):
                     }
                 )
         return super(HmsPatient, self).write(vals)
+
+    _sql_constraints = [
+        ("hms_patient_email_unique", "unique(email)", "Patient email must be unique!")
+    ]
+
+    @api.constrains("email")
+    def _check_email_format(self):
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        for rec in self:
+            if rec.email:
+                email = rec.email.strip()
+                if not re.match(pattern, email):
+                    raise ValidationError(_("Please enter a valid email address"))
 
 
 class HMSDepartment(models.Model):
