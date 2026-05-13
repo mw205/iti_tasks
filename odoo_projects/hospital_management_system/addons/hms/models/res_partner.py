@@ -9,28 +9,18 @@ class ResPartner(models.Model):
     @api.constrains("related_patient_id")
     def _check_email_unique_in_patients(self):
         for rec in self:
-            patient = rec.related_patient_id
-            if not patient or not patient.email:
-                continue
-            patient_email = patient.email.strip().lower()
-            partners = self.env["res.partner"].search(
-                [("id", "!=", rec.id), ("email", "!=", False)]
-            )
-            conflict = partners.filtered(
-                lambda p: p.email and p.email.strip().lower() == patient_email
-            )
-            if conflict:
-                raise ValidationError(
-                    _(
-                        "You cannot link this patient because the patient email is already used by another customer"
-                    )
+            if rec.related_patient_id and rec.email:
+                existing_customer = self.search(
+                    [
+                        ("id", "!=", rec.id),
+                        ("email", "=", rec.related_patient_id.email),
+                    ],
+                    limit=1,
                 )
-
-    @api.constrains("customer_rank", "vat")
-    def _check_vat_required_for_customers(self):
-        for rec in self:
-            if rec.customer_rank > 0 and not rec.vat:
-                raise ValidationError(_("Tax ID is mandatory for customers"))
+                if existing_customer:
+                    raise ValidationError(
+                        _("Patient email is already assigned to another customer")
+                    )
 
     def unlink(self):
         for rec in self:
