@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="view_partner_form_inherit_hms_related_patient" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.hms.related.patient</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref ="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <page name="sales_purchases" position="inside">
+                <group name="misc" position="inside">
+                    <field name="related_patient_id"/>
+                </group>
+            </page>
+        </field>
+    </record>
+    <record id="view_partner_form_vat_required" model="ir.ui.view">
+
+        <field name="name">res.partner.form.vat.required</field>
+
+        <field name="model">res.partner</field>
+
+        <field name="inherit_id" ref="base.view_partner_form"/>
+
+        <field name="arch" type="xml">
+
+            <field name="vat" position="attributes">
+                <attribute name="required">1</attribute>
+            </field>
+
+        </field>
+
+    </record>
+    <record id="view_partner_tree_inherit_hms_website" model="ir.ui.view">
+        <field name="name">res.partner.tree.inherit.hms.website</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref ="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="email" position="after">
+                <field name="website"/>
+            </field>
+        </field>
+    </record>
+</odoo>

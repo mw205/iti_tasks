@@ -2,6 +2,8 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import date
 
+import re
+
 
 class HmsPatient(models.Model):
     _name = "hms.patient"
@@ -9,6 +11,8 @@ class HmsPatient(models.Model):
 
     first_name = fields.Char(string="First Name", required=True)
     last_name = fields.Char(string="Last Name", required=True)
+
+    name = fields.Char(string="Name", compute="_compute_name", store=True)
     birth_date = fields.Date(string="Birth Date")
     history = fields.Html(string="History")
     cr_ratio = fields.Float(string="CR Ratio")
@@ -53,6 +57,18 @@ class HmsPatient(models.Model):
         string="State",
         default="undetermined",
     )
+    history_ids = fields.One2many(
+        "hms.patient.history.log", "patient_id", string="Log History"
+    )
+
+    email = fields.Char(string="Email")
+
+    @api.depends("first_name", "last_name")
+    def _compute_name(self):
+        for rec in self:
+            rec.name = " ".join(
+                part for part in [rec.first_name, rec.last_name] if part
+            )
 
     @api.depends("birth_date")
     def _compute_age(self):
@@ -99,6 +115,30 @@ class HmsPatient(models.Model):
                     )
                 )
 
+    def write(self, vals):
+        if "state" in vals:
+            for record in self:
+                self.env["hms.patient.history.log"].create(
+                    {
+                        "patient_id": record.id,
+                        "description": f"State changed to {vals['state']}",
+                    }
+                )
+        return super(HmsPatient, self).write(vals)
+
+    _sql_constraints = [
+        ("hms_patient_email_unique", "unique(email)", "Patient email must be unique!")
+    ]
+
+    @api.constrains("email")
+    def _check_email_format(self):
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        for rec in self:
+            if rec.email:
+                email = rec.email.strip()
+                if not re.match(pattern, email):
+                    raise ValidationError(_("Please enter a valid email address"))
+
 
 class HMSDepartment(models.Model):
     _name = "hms.department"
@@ -126,3 +166,10 @@ class HMSDoctor(models.Model):
             rec.name = " ".join(
                 part for part in [rec.first_name, rec.last_name] if part
             )
+
+
+class HMSPatientHistoryLog(models.Model):
+    _name = "hms.patient.history.log"
+    _description = "HMS Patient History Log"
+    patient_id = fields.Many2one("hms.patient", string="Patient")
+    description = fields.Char(string="Description")
