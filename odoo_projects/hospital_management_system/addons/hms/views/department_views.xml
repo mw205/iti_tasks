@@ -46,5 +46,5 @@
         <field name="view_mode">list,form</field>
 
     </record>
-    <menuitem id="hms_department" name="Departments" parent="menu_hms_root" action="action_hms_department"/>
+    <menuitem id="hms_department" name="Departments" parent="menu_hms_root" action="action_hms_department" groups="hms.group_hms_user,hms.group_hms_manager" />
 </odoo>

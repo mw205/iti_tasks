@@ -8,19 +8,23 @@ class ResPartner(models.Model):
 
     @api.constrains("related_patient_id")
     def _check_email_unique_in_patients(self):
-        for rec in self:
-            if rec.related_patient_id and rec.email:
-                existing_customer = self.search(
-                    [
-                        ("id", "!=", rec.id),
-                        ("email", "=", rec.related_patient_id.email),
-                    ],
-                    limit=1,
+        for record in self:
+            if not record.related_patient_id or not record.email:
+                continue
+
+            duplicate = self.search(
+                [
+                    ("id", "!=", record.id),
+                    ("email", "=", record.email),
+                    ("related_patient_id", "!=", False),
+                ],
+                limit=1,
+            )
+
+            if duplicate:
+                raise ValidationError(
+                    _("This email is already linked to another patient.")
                 )
-                if existing_customer:
-                    raise ValidationError(
-                        _("Patient email is already assigned to another customer")
-                    )
 
     def unlink(self):
         for rec in self:

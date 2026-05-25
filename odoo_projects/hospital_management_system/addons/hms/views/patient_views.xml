@@ -61,7 +61,7 @@
                             <field name="department_id" domain="[('is_opened', '=', True)]"/>
                             <field name="department_capacity" readonly="1"/>
                         </group>
-                        <group>
+                        <group groups="hms.group_hms_manager">
                             <field name="doctor_ids" widget="many2many_tags" readonly="not department_id"/>
                         </group>
                     </group>
@@ -90,9 +90,9 @@
     </record>
 
     <!-- Main Menu -->
-    <menuitem id="menu_hms_root" name="HMS"/>
+    <menuitem id="menu_hms_root" name="HMS" groups="hms.group_hms_user,hms.group_hms_manager" />
 
     <!-- Patients Menu -->
-    <menuitem id="menu_hms_patient" name="Patients" parent="menu_hms_root" action="action_hms_patient"/>
+    <menuitem id="menu_hms_patient" name="Patients" parent="menu_hms_root" action="action_hms_patient" groups="hms.group_hms_user,hms.group_hms_manager" />
 
 </odoo>
