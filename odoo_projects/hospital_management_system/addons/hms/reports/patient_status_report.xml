@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="patient_status_report_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="patient">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <div style="width: 100%; overflow: hidden; margin-bottom: 28px;">
+                            <div style="width: 68%; float: left; padding-top: 18px;">
+                                <h2 style="margin: 0; color: #1f3c88; font-size: 28px;">
+                                    Patient Status Report
+                                </h2>
+                            </div>
+                            <div style="width: 28%; float: right; text-align: right;">
+                                <t t-if="patient.image">
+                                    <img t-att-src="image_data_uri(patient.image)" style="width: 120px; height: 120px; object-fit: cover; border: 1px solid #d7deed; border-radius: 10px;"/>
+                                </t>
+                            </div>
+                        </div>
+
+                        <div style="clear: both; width: 100%; margin-top: 16px;">
+                            <div style="width: 48%; float: left;">
+                                <p>
+                                    <strong>Name:</strong>
+                                    <span t-field="patient.name"/>
+                                </p>
+                                <p>
+                                    <strong>Age:</strong>
+                                    <span t-field="patient.age"/>
+                                </p>
+                                <p>
+                                    <strong>Department:</strong>
+                                    <span t-field="patient.department_id"/>
+                                </p>
+                                <p>
+                                    <strong>Doctors:</strong>
+                                    <span t-esc="', '.join(patient.doctor_ids.mapped('name'))"/>
+                                </p>
+                            </div>
+
+                            <div style="width: 48%; float: right;">
+                                <p>
+                                    <strong>Birth date:</strong>
+                                    <span t-field="patient.birth_date"/>
+                                </p>
+                                <p>
+                                    <strong>PCR:</strong>
+                                    <span t-field="patient.cr_ratio"/>
+                                </p>
+                                <p>
+                                    <strong>Blood Type:</strong>
+                                    <span t-field="patient.blood_type"/>
+                                </p>
+                                <p>
+                                    <strong>Email:</strong>
+                                    <span t-field="patient.email"/>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="clear: both; padding-top: 28px;">
+                            <h3 style="margin-bottom: 14px; color: #1f3c88;">Log History</h3>
+
+                            <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background-color: #1f3c88; color: #ffffff;">
+                                        <th style="padding: 8px; text-align: left;">User</th>
+                                        <th style="padding: 8px; text-align: left;">Date</th>
+                                        <th style="padding: 8px; text-align: left;">Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-if="not patient.history_ids">
+                                        <td colspan="3" style="padding: 10px; text-align: center;">
+                                            No log history available.
+                                        </td>
+                                    </tr>
+                                    <tr t-foreach="patient.history_ids" t-as="log">
+                                        <td style="padding: 8px;">
+                                            <span t-field="log.create_uid"/>
+                                        </td>
+                                        <td style="padding: 8px;">
+                                            <span t-field="log.create_date"/>
+                                        </td>
+                                        <td style="padding: 8px;">
+                                            <span t-field="log.description"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
