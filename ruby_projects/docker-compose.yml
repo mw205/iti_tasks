@@ -1,0 +1,10 @@
+services:
+  ruby:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: ruby-alpine:3.4.9
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: ["ruby", "-v"]
