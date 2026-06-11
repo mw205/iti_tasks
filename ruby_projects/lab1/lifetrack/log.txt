@@ -1,0 +1,2 @@
+{"id":"ab2b7b2a-cdce-40d7-9928-ddbbbd1c9378","type":"work","description":"work on ruby lab1","duration":60,"created_at":"2026-06-11 21:03:31 +0300"}
+{"id":"f3953022-a4b0-4192-a387-abe5ab3d008e","type":"meal","description":"breakfast meal","duration":null,"created_at":"2026-06-11 21:07:28 +0300"}
