@@ -1,0 +1,5 @@
+There are n stones on the table in a row, each of them can be red, green or blue.
+في عندنا عدد من الاحجار عدده n موجود على الترابيزة و ممكن يكون احمر او اخضر او ازرق
+
+Count the minimum number of stones to take from the table so that any two neighboring stones had different colors.
+عايزين نعد اقل عدد من الأحجار ناخده من على الترابيزة بحيث ان كل الاحجار اللي جنب بعض يبقوا مختلفين
